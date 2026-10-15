@@ -212,6 +212,7 @@ gamepads' only.
 | pause menu | escape |
 | screenshot | F10 |
 | talk in voice chat (hold) | V |
+| switch a Warthog seat's view (driver or passenger) | H |
 
 Always: \` opens the developer console, F12 releases or captures the mouse,
 F11 changes between fullscreen and window. Screenshot (default F10,
@@ -367,7 +368,7 @@ the setting for one start of the game. It has priority over the file.
 | `input.mouse_vertical_sensitivity` | `0.0` | `HALO_MOUSE_VERTICAL_SENSITIVITY` | The multiplier for the vertical mouse aim. `0`: the same as `input.mouse_sensitivity`. |
 | `input.invert_mouse` | `false` | `HALO_MOUSE_INVERT=1` sets `true` | `true`: the vertical mouse aim is inverted. |
 | `input.mouse_aim_assist` | `false` | `HALO_MOUSE_AIM_ASSIST` | `true`: the magnetism of the controller also operates for the mouse. `false`: when the mouse moved after the right stick, the view is not slowed or dragged by a target. The autoaim of the bullets operates in both cases. |
-| `controls.<action>` | (the table in "Controls") | `HALO_KEY_<ACTION>` | The keys and mouse buttons of an action, up to two, separated by a comma: `move_forward`, `move_backward`, `strafe_left`, `strafe_right`, `jump`, `crouch`, `fire`, `throw_grenade`, `melee`, `reload`, `zoom`, `switch_weapon`, `switch_grenade`, `action`, `flashlight`, `scoreboard`, `pause`, `screenshot`, `push_to_talk`. Keys by their names (`"W"`, `"Space"`, `"Left Ctrl"`, `"F1"`), and `"Mouse Left"`, `"Mouse Right"`, `"Mouse Middle"`, `"Mouse 4"`, `"Mouse 5"`, `"Wheel"` (either way), `"Wheel Up"`, `"Wheel Down"`. |
+| `controls.<action>` | (the table in "Controls") | `HALO_KEY_<ACTION>` | The keys and mouse buttons of an action, up to two, separated by a comma: `move_forward`, `move_backward`, `strafe_left`, `strafe_right`, `jump`, `crouch`, `fire`, `throw_grenade`, `melee`, `reload`, `zoom`, `switch_weapon`, `switch_grenade`, `action`, `flashlight`, `scoreboard`, `pause`, `screenshot`, `push_to_talk`, `vehicle_view`. Keys by their names (`"W"`, `"Space"`, `"Left Ctrl"`, `"F1"`), and `"Mouse Left"`, `"Mouse Right"`, `"Mouse Middle"`, `"Mouse 4"`, `"Mouse 5"`, `"Wheel"` (either way), `"Wheel Up"`, `"Wheel Down"`. |
 | `game.console_log` | `"important"` | `HALO_CONSOLE_LOG` | What the console shows on the screen. `"important"`: bans, players that the host drops for cheating, the reasons that the game refuses a command, and the asserts that stop the game. `"all"`: all the lines. `"none"`: only the asserts that stop the game. The output of a command always shows. `debug.txt` gets all the lines. |
 | `game.language` | `""` | `HALO_LANGUAGE` | The language of the menus: `ja`, `de`, `fr`, `es` or `it`. Empty: English. |
 | `game.enhanced_animations` | `true` | `HALO_ENHANCED_ANIMATIONS` | `true`: the player bipeds' grenade throws keep their legs moving, blended by speed and direction (crouched throws stay crouched, throws in the air use the jump's legs), Warthog and Scorpion riders stay seated to throw and let go of the grips to throw and reload, and a player turns with the aim while throwing, as while meleeing. `false`: the original animations, which freeze the legs during a throw and stand a rider up. Only in config.toml, not in the menus. |
@@ -398,6 +399,7 @@ the setting for one start of the game. It has priority over the file.
 | `network.map_seed` | `true` | `HALO_NET_MAP_SEED` | When you play in the game of another machine: help send its map to players who join without it. HELP SEND MAPS in Settings > Network Setup > Map Sharing. |
 | `network.map_seed_upload` | `256` | `HALO_NET_MAP_SEED_UPLOAD` | When you play in the game of another machine: the most kilobytes per second that the game sends of maps to other players (`16` to `65536`). UPLOAD LIMIT in Settings > Network Setup > Map Sharing. |
 | `network.map_download` | `true` | `HALO_NET_MAP_DOWNLOAD` | When you join a game on a Custom Edition map that you do not have: download it from the players of the game. `false`: leave the game and show which map is missing. DOWNLOAD MAPS in Settings > Network Setup > Map Sharing. |
+| `warthog.*` | stock | `HALO_WARTHOG_*` | When you host: Server Setup > WARTHOG OPTIONS, for every Warthog in the game. Every player's game takes them from yours. `acceleration`, `top_speed`, `steering`, `turret_accuracy`, `turret_rate_of_fire`, `turret_damage`: percent of stock (`100`). `passenger_aim_range`: degrees (`0`: stock, `360`: all the way round). `turret_headshot`: percent damage of a hit on the head (`0`: the game's own rule). `shield_layers`: `0` (none, stock) to `3`; `shield_amount_1` to `_3`: each layer's points (layer 1 is the outermost); `shield_recharge_1` to `_3`: seconds for each layer to recharge from empty; `shield_recharge_delay`: seconds after a hit. `rider_protection`: of the damage that reaches a rider while the shields hold, the percent that the shields take. `bullets_`, `explosives_`, `plasma_bullets_` and `plasma_explosives_` with `shield`, `knockback` and `pass_through`: the percent less of that effect while the shields hold (`0`: stock). Refer to "Warthog options". |
 | `network.coop_public` | `false` | `HALO_NET_COOP_PUBLIC` | `true`: an online co-op game (Create Game > Internet, a SINGLEPLAYER map) starts as PUBLIC. `false`: it starts as PRIVATE. LISTING in co-op's Server Setup writes its choice here. Refer to "Server browser". |
 | `network.brokers_file` | `"brokers.txt"` | `HALO_NET_BROKERS_FILE` | The file of the public MQTT brokers that let the machines of an invite find each other, and that carry the listings of the server browser: next to `config.toml`, unless a full path. One `host:port` on each line, up to 4; `#` starts a comment. |
 | `network.stun_servers` | Google and Cloudflare | `HALO_NET_STUN` | The public STUN servers (`host:port`, with commas between them) that give the internet address of a machine. |
@@ -813,6 +815,44 @@ its invite) as the host does, and a player who downloads connects to them in
 the same way that it connected to the host. Map sharing uses port 5153 for
 its connections. Refer to `NETCODE.md`, "Map sharing".
 
+### Warthog options
+
+The host's Server Setup has WARTHOG OPTIONS (`port/linux/game/warthog_options.c`),
+for any game: every Warthog (the chaingun and the rocket Warthog alike)
+plays as the host set it, on every machine. The host's choice goes in the
+game record, so each machine has it before the map loads, and every
+machine changes its own Warthog tags in the same way (the clients predict
+their own vehicles and shots from them, and the host checks them).
+Everything is stock until changed, and a machine of an older version does
+not join (network version 30).
+
+- WARTHOG TUNING: acceleration, top speed, steering (how sharply and how
+  fast), how far the passenger turns in the seat, and the turret's
+  accuracy, rate of fire, damage and damage of a hit on the head.
+- WARTHOG SHIELDS: up to three layers of shield points. The outermost
+  breaks first. After the RECHARGE DELAY with no hit, the layers recharge
+  from the inside out, each in its own time. RIDER PROTECTION: of the
+  damage that still reaches a rider, the part that the shields take. The
+  riders see the shields as a bar above the bottom of the screen.
+- VS BULLETS, VS EXPLOSIVES, VS PLASMA, VS PLASMA BLASTS: while the
+  shields hold, how much less of each kind of damage drains them (SHIELD
+  DAMAGE), throws the Warthog (KNOCKBACK, which flips it) and reaches the
+  riders, with their stun (PASS-THROUGH; plasma's stun is what stops a
+  player turning). Bullets are bullets, sniper rounds, shotgun pellets and
+  mounted guns; plasma is plasma bolts and needles. Explosives are frag
+  grenades, rockets and shells; plasma explosives are those whose tags are
+  named for plasma, the fuel rod or the Banshee. Melee, collisions and
+  falls are as stock.
+
+Only the host deals the shields' damage. It sends their points to its
+clients ten times a second, and its damage events carry how much of their
+knockback and stun the shields took, so a client's replay throws its
+Warthog and stuns its player as the host's did.
+
+H (`controls.vehicle_view`) switches the view of a Warthog's driver or
+passenger seat between first and third person. The game remembers the
+choice for each seat. It is the player's own: nothing of it is sent.
+
 ### Security
 
 Only machines with the invite can find the game:
@@ -1158,6 +1198,7 @@ Other changes:
 | `rasterizer/rasterizer.h` | A frame holds 2048 transparent geometry groups, not 384 (`include/halo_port_capacity.h`): a co-op game with many added enemies asked for more, and the Xbox's pool drew the frame without the rest. |
 | `structures/structure_render.c` | The structure's visible surfaces are put in order by a radix sort, not `qsort_4byte`: the same order. |
 | `cache/cache_files.c`, `networking/network_client_manager.c`, `networking/network_server_manager.c`, `networking/network_server_message_handler.c`, `main/main.c`, `interface/interface.c` | Map sharing (`game/map_share.c`): a client that does not have the game's Custom Edition map asks the host for it instead of leaving, is not given time to precache it until it has it, and adds its players to a game in progress only then; the host gives the game's map its own name and its version (its hash's start), takes the requests from any machine in the game, lobby too, and does not drop a machine that downloads; the transfers run each frame, and their progress is drawn over the screen. |
+| `cache/cache_files.c`, `networking/network_game_manager.c`, `networking/network_game_manager.h`, `networking/network_server_manager.c`, `objects/damage.c`, `units/units.c`, `camera/director.c`, `interface/hud.c` | WARTHOG OPTIONS (`game/warthog_options.c`): the host's options travel in the game record and tune the Warthogs' tags as a map loads; the host's damage asks for the turret's damage and headshots and the shields' share of a hit on a Warthog or its riders, and the knockback and stun are scaled by what the shields took; a Warthog seat's view can be switched; the riders' HUD draws the shields. |
 | `cutscene/cinematics.c` | A scenario's titles (some Custom Edition maps show their name for the whole game) are not drawn over a menu, as the letterbox is not: the screen's overlays are drawn after the players' menus. |
 | `tag_files/tag_groups.h` | `TAG_BLOCK_GET_ELEMENT` returns an element in the block without a call, and calls `tag_block_get_element_with_size` for anything else. |
 | `input/input_xbox.c`, `physics/collision_usage.c` | The clock is read only for a button held, and for collision tests only when their times are shown: a read of the clock is slow in a browser. |

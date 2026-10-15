@@ -4338,6 +4338,20 @@ void network_game_server_port_set_cooperative_player_collisions(
 		network_event("network_game_server_port_set_cooperative_player_collisions() failed to send updated game settings to clients");
 }
 
+/* port: Server Setup's WARTHOG OPTIONS (port/linux/game/warthog_options.c),
+which the clients have in the game record before the map loads */
+void network_game_server_port_set_warthog_options(
+	struct warthog_options const *options)
+{
+	struct network_game_server *server = global_network_game_server_get();
+
+	if (!server || !options)
+		return;
+	server->game.warthog_options = *options;
+	if (server->state == _network_game_server_state_pregame && !network_game_server_send_game_data_pregame(server))
+		network_event("network_game_server_port_set_warthog_options() failed to send updated game settings to clients");
+}
+
 /* port: a gametype's PC options: the menus' (player_ui_set_game_variant_options)
 when it is the menus' gametype, else its defaults */
 static void network_game_server_variant_options(

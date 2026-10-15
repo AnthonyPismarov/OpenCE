@@ -1,4 +1,4 @@
-version 29
+version 30
 bound DISCORD_ID_SIZE 24
 bound DISCORD_NAME_SIZE 40
 bound DISTRIBUTED_INPUT_HISTORY 4
@@ -20,6 +20,7 @@ bound MAXIMUM_QUEUED_DAMAGE_ANIMATIONS 32
 bound MAXIMUM_QUEUED_EVENTS 128
 bound MAXIMUM_REGIONS_PER_OBJECT 8
 bound MAXIMUM_STATISTICS_PER_MESSAGE 64
+bound MAXIMUM_WARTHOG_SHIELD_LAYERS 3
 bound MAXIMUM_WEAPONS_PER_UNIT 4
 bound NUMBER_OF_ANGLES enum f0ce7d0319b6
 bound NUMBER_OF_OBJECT_CHANGE_COLORS enum b00724872e2d
@@ -80,6 +81,7 @@ enum _distributed_message_voice_down 81
 enum _distributed_message_voice_up 80
 enum _distributed_message_votekick 78
 enum _distributed_message_votekick_status 79
+enum _distributed_message_warthog_shields 87
 enum _distributed_object_at_rest_bit 1
 enum _distributed_object_carried_bit 0
 enum _distributed_object_dead_bit 2
@@ -236,7 +238,7 @@ struct distributed_coop_presentation_message eb4c7a895272
 struct distributed_coop_screen_effect_message a0a226e0858e
 struct distributed_coop_skip_vote c37a12a02932
 struct distributed_coop_skip_vote_message d21260f32711
-struct distributed_damage d2bdb398fb2b
+struct distributed_damage a7064a203787
 struct distributed_damage_animation ae158e21c915
 struct distributed_damage_animations_message 863e25ca3614
 struct distributed_damage_event 659e4d49733b
@@ -269,3 +271,4 @@ struct distributed_voice_down e3751d692f16
 struct distributed_voice_up 3d74ee44e4cb
 struct distributed_votekick_request d5f913f22d81
 struct distributed_votekick_status 966041386843
+struct distributed_warthog_shields 00a79bb920f1

@@ -109,6 +109,7 @@ symbols in this file:
 #include "text/draw_string.h"
 #include "coop_spectate.h" /* port: port/linux/game/coop_spectate.c */
 #include "network_coop.h" /* port: port/linux/game/network_coop.c */
+#include "warthog_options.h" /* port: port/linux/game/warthog_options.c */
 #include "text/font_group.h"
 #include "text/text_group.h"
 #include "units/unit_definitions.h"
@@ -1423,6 +1424,9 @@ void hud_draw_screen(
 		/* port: the network co-op vote to skip a cinematic */
 		if (cinematic_in_progress())
 			coop_skip_vote_draw(render.local_player_index);
+		/* port: a Warthog's shields, to its riders (port/linux/game/warthog_options.c) */
+		if (player->unit_index != NONE && !cinematic_in_progress())
+			warthog_options_draw(render.local_player_index);
 
 		if (!game_time_get_paused() &&
 			render.local_player_index == local_player_get_next(NONE))

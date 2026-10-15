@@ -38,6 +38,9 @@ enum halo_keyboard_action
 	/* (voice chat's, which the game itself does not read:
 	halo_push_to_talk_held) */
 	HALO_KEYBOARD_PUSH_TO_TALK,
+	/* (WARTHOG OPTIONS' view key, which the game reads itself:
+	port/linux/game/warthog_options.c) */
+	HALO_KEYBOARD_VEHICLE_VIEW,
 	NUMBER_OF_HALO_KEYBOARD_ACTIONS
 };
 

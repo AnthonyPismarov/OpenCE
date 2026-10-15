@@ -125,6 +125,9 @@ enum
 	_distributed_message_map_share_offer = 84,
 	_distributed_message_map_share_sources = 85,
 	_distributed_message_map_share_progress = 86,
+	/* Server Setup's WARTHOG OPTIONS (warthog_options.c): the host's
+	Warthogs' shields, ten times a second (unreliable) */
+	_distributed_message_warthog_shields = 87,
 
 	NUMBER_OF_DISTRIBUTED_MESSAGES
 };

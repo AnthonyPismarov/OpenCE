@@ -695,6 +695,7 @@ symbols in this file:
 #include "network_coop.h" /* port: port/linux/game/network_coop.c */
 #include "coop_scripts.h" /* port: port/linux/game/coop_scripts.c */
 #include "coop_enemies.h" /* port: port/linux/game/coop_enemies.c */
+#include "warthog_options.h" /* port: port/linux/game/warthog_options.c */
 
 /* port: the control and animation impulses the host's actors give their
 units go to the clients' copies (port/linux/game/network_actors.c) */
@@ -7229,8 +7230,11 @@ void unit_damage_aftermath(
 		}
 	}
 
+	/* port: less, or none, while a Warthog's shields hold
+	(port/linux/game/warthog_options.c) */
 	if (unit->unit.player_index != NONE &&
 		damage_definition->stun > 0.f &&
+		warthog_damage_stun_scale > 0.f &&
 		(game_engine_running() || stun_enable))
 	{
 		struct game_globals_player_information *player_information =
@@ -7239,9 +7243,9 @@ void unit_damage_aftermath(
 				0,
 				struct game_globals_player_information);
 		real stun_increment =
-			damage_definition->stun * damage_data->scale;
+			damage_definition->stun * damage_data->scale * warthog_damage_stun_scale;
 		real maximum_stun =
-			damage_definition->maximum_stun * damage_data->scale;
+			damage_definition->maximum_stun * damage_data->scale * warthog_damage_stun_scale;
 		short stun_ticks;
 		short minimum_stun_ticks;
 		short maximum_stun_ticks;
@@ -7269,7 +7273,7 @@ void unit_damage_aftermath(
 		}
 
 		stun_ticks = (short)(
-			damage_definition->stun_time * TICKS_PER_SECOND);
+			damage_definition->stun_time * warthog_damage_stun_scale * TICKS_PER_SECOND);
 		minimum_stun_ticks = (short)(
 			player_information->minimum_stun_time * TICKS_PER_SECOND);
 		maximum_stun_ticks = (short)(

@@ -78,6 +78,7 @@ machine (their datum identifiers need not be).
 #include "network_voice.h"
 #include "map_share.h"
 #include "profile_sections.h"
+#include "halo_warthog_options.h"
 
 #include <limits.h>
 #include <stdio.h>
@@ -3434,6 +3435,9 @@ void network_distributed_tick(
 		profile_scope(distributed_tick_damage_client_tick_section, network_damage_client_tick();)
 		profile_scope(distributed_tick_coop_client_tick_section, network_coop_client_tick();)
 	}
+	/* Server Setup's WARTHOG OPTIONS: the host's shields recharged and sent,
+	the view key read (warthog_options.c) */
+	warthog_options_tick();
 	profile_scope(distributed_tick_batches_flush_section, distributed_batches_flush();)
 	distributed_machines.in_tick = FALSE;
 	distributed_machines.valid = FALSE;
@@ -3474,6 +3478,7 @@ static boolean distributed_message_stale(
 	case _distributed_message_coop_screen_effect:
 	case _distributed_message_coop_device_states:
 	case _distributed_message_votekick_status:
+	case _distributed_message_warthog_shields:
 		break;
 	default:
 		return FALSE;
@@ -4044,6 +4049,7 @@ void network_distributed_handle_message(
 	case _distributed_message_pickups: entry_size = sizeof(struct distributed_pickup); break;
 	case _distributed_message_votekick: entry_size = network_votekick_request_entry_size(); break;
 	case _distributed_message_votekick_status: entry_size = network_votekick_status_entry_size(); break;
+	case _distributed_message_warthog_shields: entry_size = warthog_options_shields_entry_size(); break;
 	case _distributed_message_player_inputs: entry_size = sizeof(struct distributed_player_input); break;
 	case _distributed_message_relayed_actions: entry_size = DISTRIBUTED_RELAYED_ACTION_MINIMUM_SIZE; break;
 	case _distributed_message_game_state:
@@ -4147,6 +4153,9 @@ void network_distributed_handle_message(
 		break;
 	case _distributed_message_votekick_status:
 		network_votekick_handle_status(entries);
+		break;
+	case _distributed_message_warthog_shields:
+		warthog_options_handle_shields(entries, header.count);
 		break;
 	case _distributed_message_coop_device_groups:
 		network_coop_handle_device_groups(entries, header.count);

@@ -9,24 +9,25 @@
 	</widget>
 	<widget name="main_menu/multiplayer_type_select/server_settings/header_server_settings" controller="1" left="35" top="11" width="605" height="59" bitmap="main_menu/multiplayer_type_select/server_settings/header_server_settings">
 	</widget>
-	<widget name="main_menu/multiplayer_type_select/server_settings/help" type="text" controller="1" left="68" top="366" width="482" height="60" string_list="main_menu/multiplayer_type_select/server_settings/help_strings" font="ui\large_ui" color="#FFFFFFFF">
+	<widget name="main_menu/multiplayer_type_select/server_settings/help" type="text" controller="1" left="68" top="368" width="482" height="60" string_list="main_menu/multiplayer_type_select/server_settings/help_strings" font="ui\large_ui" color="#FFFFFFFF">
 	</widget>
 	<widget name="main_menu/multiplayer_type_select/server_settings/options_menu" type="column_list" width="640" height="480" flags="pass_unhandled_to_focused_child up_down_tabs_children" description="main_menu/multiplayer_type_select/server_settings/help">
 		<data input="server settings update"/>
 		<on event="created" run="server settings init"/>
 		<child widget="main_menu/multiplayer_type_select/server_settings/op_server_name" x="54" y="73"/>
-		<child widget="main_menu/multiplayer_type_select/server_settings/op_max_players" x="54" y="97"/>
-		<child widget="main_menu/multiplayer_type_select/server_settings/op_invite" x="54" y="121"/>
-		<child widget="main_menu/multiplayer_type_select/server_settings/op_listing" x="54" y="145"/>
-		<child widget="main_menu/multiplayer_type_select/server_settings/op_password" x="54" y="169"/>
-		<child widget="main_menu/multiplayer_type_select/server_settings/op_map_share_options" x="54" y="193"/>
-		<child widget="main_menu/multiplayer_type_select/server_settings/op_coop_options" x="54" y="217"/>
-		<child widget="main_menu/multiplayer_type_select/server_settings/op_voice_options" x="54" y="241"/>
-		<child widget="main_menu/multiplayer_type_select/server_settings/op_game_type" x="54" y="217"/>
-		<child widget="main_menu/multiplayer_type_select/server_settings/op_player_options" x="54" y="241"/>
-		<child widget="main_menu/multiplayer_type_select/server_settings/op_item_options" x="54" y="265"/>
-		<child widget="main_menu/multiplayer_type_select/server_settings/op_vehicle_options" x="54" y="289"/>
-		<child widget="main_menu/multiplayer_type_select/server_settings/op_indicator_options" x="54" y="313"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/op_max_players" x="54" y="95"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/op_invite" x="54" y="117"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/op_listing" x="54" y="139"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/op_password" x="54" y="161"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/op_map_share_options" x="54" y="183"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/op_warthog_options" x="54" y="205"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/op_coop_options" x="54" y="227"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/op_voice_options" x="54" y="249"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/op_game_type" x="54" y="227"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/op_player_options" x="54" y="249"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/op_item_options" x="54" y="271"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/op_vehicle_options" x="54" y="293"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/op_indicator_options" x="54" y="315"/>
 		<child widget="main_menu/multiplayer_type_select/server_settings/op_team_options" x="54" y="337"/>
 		<child widget="main_menu/multiplayer_type_select/server_settings/button_bar" y="414"/>
 	</widget>
@@ -98,6 +99,14 @@
 		<child widget="main_menu/multiplayer_type_select/server_settings/map_share_options_label"/>
 	</widget>
 	<widget name="main_menu/multiplayer_type_select/server_settings/map_share_options_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/labels" string_index="13" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/op_warthog_options" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<on event="a" open="main_menu/multiplayer_type_select/server_settings/warthog_options/warthog_options_screen"/>
+		<on event="start" open="main_menu/multiplayer_type_select/server_settings/warthog_options/warthog_options_screen"/>
+		<on event="left_mouse" run="mouse emit accept event"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options_label"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/labels" string_index="14" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
 	</widget>
 	<widget name="main_menu/multiplayer_type_select/server_settings/op_coop_options" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
 		<on event="a" open="main_menu/multiplayer_type_select/server_settings/coop_options/coop_options_screen"/>
@@ -204,6 +213,7 @@
 		<string text="VOICE AND VOTING:"/>
 		<string text="PASSWORD:"/>
 		<string text="MAP SHARING:"/>
+		<string text="WARTHOG OPTIONS:"/>
 	</strings>
 	<strings name="main_menu/multiplayer_type_select/server_settings/help_strings">
 		<string text=""/>
@@ -222,6 +232,7 @@
 		<string text="Voice chat and votes to kick a player, for this\ngame."/>
 		<string text="Players from the Server Browser must type it to\njoin (an invite link needs none). Enter sets it."/>
 		<string text="Sending players who join without the game's\nCustom Edition map the map, and how fast."/>
+		<string text="Tune the Warthogs and give them shields, for this\ngame (every player's game takes yours)."/>
 	</strings>
 	<widget name="main_menu/multiplayer_type_select/server_settings/coop_options/coop_options_screen" width="640" height="480" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/gradient">
 		<child widget="main_menu/multiplayer_type_select/server_settings/coop_options/header_coop_options"/>
@@ -557,5 +568,1033 @@
 		<string text="The most you send of maps, so that the game\nkeeps the rest of your upload."/>
 		<string text="The most you send of maps, so that the game\nkeeps the rest of your upload."/>
 		<string text="The most you send of maps, so that the game\nkeeps the rest of your upload."/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/warthog_options_screen" width="640" height="480" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/gradient">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/header_warthog_options"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/warthog_options_menu"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/header_warthog_options" controller="1" left="35" top="11" width="363" height="59" bitmap="main_menu/multiplayer_type_select/server_settings/warthog_options/header_warthog_options">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/warthog_options_help" type="text" controller="1" left="68" top="341" width="482" height="79" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/cap_warthog_options" font="ui\large_ui" color="#FFFFFFFF">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/warthog_options_menu" type="column_list" width="640" height="480" flags="pass_unhandled_to_focused_child up_down_tabs_children" description="main_menu/multiplayer_type_select/server_settings/warthog_options/warthog_options_help">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/op_wh_tuning" x="54" y="73"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/op_wh_shields" x="54" y="103"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/op_wh_vs_bul" x="54" y="133"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/op_wh_vs_exp" x="54" y="163"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/op_wh_vs_pla" x="54" y="193"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/op_wh_vs_plx" x="54" y="223"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/warthog_options_button_bar" y="414"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/warthog_options_button_bar" type="column_list" width="640" height="28" flags="pass_unhandled_to_focused_child left_right_tabs_items">
+		<data input="common button bar update"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/warthog_options_button_ok" x="510" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/warthog_options_button_ok" type="text" width="128" height="24" bitmap="bitmaps/text_button_background" string_list="strings/common_button_captions" string_index="1" font="ui\small_ui" color="#FFFFFFFF" align="center" text_y="2">
+		<on event="a" back="true"/>
+		<on event="start" back="true"/>
+		<on event="left_mouse" run="mouse emit accept event"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/op_wh_tuning" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<on event="a" open="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_screen"/>
+		<on event="start" open="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_screen"/>
+		<on event="left_mouse" run="mouse emit accept event"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning_label"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning_label" type="text" controller="1" width="480" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/warthog_options_labels" string_index="0" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/op_wh_shields" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<on event="a" open="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_screen"/>
+		<on event="start" open="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_screen"/>
+		<on event="left_mouse" run="mouse emit accept event"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields_label"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields_label" type="text" controller="1" width="480" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/warthog_options_labels" string_index="1" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/op_wh_vs_bul" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<on event="a" open="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_vs_bul_screen"/>
+		<on event="start" open="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_vs_bul_screen"/>
+		<on event="left_mouse" run="mouse emit accept event"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul_label"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul_label" type="text" controller="1" width="480" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/warthog_options_labels" string_index="2" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/op_wh_vs_exp" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<on event="a" open="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_vs_exp_screen"/>
+		<on event="start" open="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_vs_exp_screen"/>
+		<on event="left_mouse" run="mouse emit accept event"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp_label"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp_label" type="text" controller="1" width="480" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/warthog_options_labels" string_index="3" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/op_wh_vs_pla" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<on event="a" open="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_vs_pla_screen"/>
+		<on event="start" open="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_vs_pla_screen"/>
+		<on event="left_mouse" run="mouse emit accept event"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla_label"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla_label" type="text" controller="1" width="480" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/warthog_options_labels" string_index="4" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/op_wh_vs_plx" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<on event="a" open="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_vs_plx_screen"/>
+		<on event="start" open="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_vs_plx_screen"/>
+		<on event="left_mouse" run="mouse emit accept event"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx_label"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx_label" type="text" controller="1" width="480" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/warthog_options_labels" string_index="5" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/warthog_options_labels">
+		<string text="WARTHOG TUNING..."/>
+		<string text="WARTHOG SHIELDS..."/>
+		<string text="SHIELDS VS BULLETS..."/>
+		<string text="SHIELDS VS EXPLOSIVES..."/>
+		<string text="SHIELDS VS PLASMA..."/>
+		<string text="SHIELDS VS PLASMA BLASTS..."/>
+	</strings>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/cap_warthog_options">
+		<string text="Each screen sets part of the Warthogs' options;\nevery player's game takes yours."/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_screen" width="640" height="480" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/gradient">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/header_wh_tuning"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_menu"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/header_wh_tuning" controller="1" left="35" top="11" width="363" height="59" bitmap="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/header_wh_tuning">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_help" type="text" controller="1" left="68" top="341" width="482" height="79" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/cap_wh_tuning" font="ui\large_ui" color="#FFFFFFFF">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_menu" type="column_list" width="640" height="480" flags="pass_unhandled_to_focused_child up_down_tabs_children" description="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_help">
+		<data input="game settings lists text update"/>
+		<on event="created" run="port setup options init"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/op_wh_accel" x="54" y="73"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/op_wh_speed" x="54" y="103"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/op_wh_steer" x="54" y="133"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/op_wh_aim" x="54" y="163"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/op_wh_tacc" x="54" y="193"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/op_wh_trof" x="54" y="223"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/op_wh_tdmg" x="54" y="253"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/op_wh_thead" x="54" y="283"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_button_bar" y="414"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_button_bar" type="column_list" width="640" height="28" flags="pass_unhandled_to_focused_child left_right_tabs_items">
+		<data input="common button bar update"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_button_ok" x="380" y="1"/>
+		<child widget="common_button_cancel" x="510" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_button_ok" type="text" width="128" height="24" bitmap="bitmaps/text_button_background" string_list="strings/common_button_captions" string_index="1" font="ui\small_ui" color="#FFFFFFFF" align="center" text_y="2">
+		<on event="a" run="port setup options save" back="true"/>
+		<on event="start" run="port setup options save" back="true"/>
+		<on event="left_mouse" run="mouse emit accept event"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/op_wh_accel" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_accel_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_accel_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_accel_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_labels" string_index="0" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_accel_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/var_wh_accel" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/var_wh_accel">
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="100%"/>
+		<string text="125%"/>
+		<string text="150%"/>
+		<string text="200%"/>
+		<string text="300%"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/op_wh_speed" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_speed_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_speed_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_speed_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_labels" string_index="1" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_speed_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/var_wh_speed" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/var_wh_speed">
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="100%"/>
+		<string text="125%"/>
+		<string text="150%"/>
+		<string text="200%"/>
+		<string text="300%"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/op_wh_steer" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_steer_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_steer_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_steer_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_labels" string_index="2" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_steer_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/var_wh_steer" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/var_wh_steer">
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="100%"/>
+		<string text="125%"/>
+		<string text="150%"/>
+		<string text="200%"/>
+		<string text="300%"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/op_wh_aim" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_aim_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_aim_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_aim_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_labels" string_index="3" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_aim_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/var_wh_aim" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/var_wh_aim">
+		<string text="STOCK"/>
+		<string text="90 DEGREES"/>
+		<string text="120 DEGREES"/>
+		<string text="180 DEGREES"/>
+		<string text="240 DEGREES"/>
+		<string text="ALL AROUND"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/op_wh_tacc" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tacc_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tacc_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tacc_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_labels" string_index="4" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tacc_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/var_wh_tacc" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/var_wh_tacc">
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="100%"/>
+		<string text="150%"/>
+		<string text="200%"/>
+		<string text="400%"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/op_wh_trof" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_trof_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_trof_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_trof_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_labels" string_index="5" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_trof_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/var_wh_trof" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/var_wh_trof">
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="100%"/>
+		<string text="125%"/>
+		<string text="150%"/>
+		<string text="200%"/>
+		<string text="300%"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/op_wh_tdmg" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tdmg_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tdmg_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tdmg_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_labels" string_index="6" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tdmg_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/var_wh_tdmg" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/var_wh_tdmg">
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="100%"/>
+		<string text="125%"/>
+		<string text="150%"/>
+		<string text="200%"/>
+		<string text="300%"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/op_wh_thead" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_thead_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_thead_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_thead_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_labels" string_index="7" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_thead_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/var_wh_thead" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/var_wh_thead">
+		<string text="STOCK"/>
+		<string text="1.5X"/>
+		<string text="2X"/>
+		<string text="3X"/>
+		<string text="5X"/>
+	</strings>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/wh_tuning_labels">
+		<string text="ACCELERATION:"/>
+		<string text="TOP SPEED:"/>
+		<string text="STEERING:"/>
+		<string text="PASSENGER AIM:"/>
+		<string text="TURRET ACCURACY:"/>
+		<string text="TURRET FIRE RATE:"/>
+		<string text="TURRET DAMAGE:"/>
+		<string text="TURRET HEADSHOTS:"/>
+	</strings>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_tuning/cap_wh_tuning">
+		<string text="Warthogs gather speed at 50% of stock."/>
+		<string text="Warthogs gather speed at 75% of stock."/>
+		<string text="Warthogs gather speed at 100% of stock."/>
+		<string text="Warthogs gather speed at 125% of stock."/>
+		<string text="Warthogs gather speed at 150% of stock."/>
+		<string text="Warthogs gather speed at 200% of stock."/>
+		<string text="Warthogs gather speed at 300% of stock."/>
+		<string text="Warthogs' top speed is 50% of stock."/>
+		<string text="Warthogs' top speed is 75% of stock."/>
+		<string text="Warthogs' top speed is 100% of stock."/>
+		<string text="Warthogs' top speed is 125% of stock."/>
+		<string text="Warthogs' top speed is 150% of stock."/>
+		<string text="Warthogs' top speed is 200% of stock."/>
+		<string text="Warthogs' top speed is 300% of stock."/>
+		<string text="Warthogs steer 50% as sharply and as fast as\nstock."/>
+		<string text="Warthogs steer 75% as sharply and as fast as\nstock."/>
+		<string text="Warthogs steer 100% as sharply and as fast as\nstock."/>
+		<string text="Warthogs steer 125% as sharply and as fast as\nstock."/>
+		<string text="Warthogs steer 150% as sharply and as fast as\nstock."/>
+		<string text="Warthogs steer 200% as sharply and as fast as\nstock."/>
+		<string text="Warthogs steer 300% as sharply and as fast as\nstock."/>
+		<string text="The passenger turns as far as stock."/>
+		<string text="The passenger turns 90 degrees in their seat."/>
+		<string text="The passenger turns 120 degrees in their seat."/>
+		<string text="The passenger turns 180 degrees in their seat."/>
+		<string text="The passenger turns 240 degrees in their seat."/>
+		<string text="The passenger turns all the way round."/>
+		<string text="The turret is 50% as accurate as stock (200%:\nits shots spread half as wide)."/>
+		<string text="The turret is 75% as accurate as stock (200%:\nits shots spread half as wide)."/>
+		<string text="The turret is 100% as accurate as stock (200%:\nits shots spread half as wide)."/>
+		<string text="The turret is 150% as accurate as stock (200%:\nits shots spread half as wide)."/>
+		<string text="The turret is 200% as accurate as stock (200%:\nits shots spread half as wide)."/>
+		<string text="The turret is 400% as accurate as stock (200%:\nits shots spread half as wide)."/>
+		<string text="The turret fires 50% as fast as stock."/>
+		<string text="The turret fires 75% as fast as stock."/>
+		<string text="The turret fires 100% as fast as stock."/>
+		<string text="The turret fires 125% as fast as stock."/>
+		<string text="The turret fires 150% as fast as stock."/>
+		<string text="The turret fires 200% as fast as stock."/>
+		<string text="The turret fires 300% as fast as stock."/>
+		<string text="The turret deals 50% of its stock damage."/>
+		<string text="The turret deals 75% of its stock damage."/>
+		<string text="The turret deals 100% of its stock damage."/>
+		<string text="The turret deals 125% of its stock damage."/>
+		<string text="The turret deals 150% of its stock damage."/>
+		<string text="The turret deals 200% of its stock damage."/>
+		<string text="The turret deals 300% of its stock damage."/>
+		<string text="The turret's head hits are as stock."/>
+		<string text="The turret's hits on the head deal 1.5x damage."/>
+		<string text="The turret's hits on the head deal 2x damage."/>
+		<string text="The turret's hits on the head deal 3x damage."/>
+		<string text="The turret's hits on the head deal 5x damage."/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_screen" width="640" height="480" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/gradient">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/header_wh_shields"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_menu"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/header_wh_shields" controller="1" left="35" top="11" width="363" height="59" bitmap="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/header_wh_shields">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_help" type="text" controller="1" left="68" top="341" width="482" height="79" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/cap_wh_shields" font="ui\large_ui" color="#FFFFFFFF">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_menu" type="column_list" width="640" height="480" flags="pass_unhandled_to_focused_child up_down_tabs_children" description="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_help">
+		<data input="game settings lists text update"/>
+		<on event="created" run="port setup options init"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/op_wh_layers" x="54" y="73"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/op_wh_amt1" x="54" y="103"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/op_wh_amt2" x="54" y="133"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/op_wh_amt3" x="54" y="163"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/op_wh_rch1" x="54" y="193"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/op_wh_rch2" x="54" y="223"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/op_wh_rch3" x="54" y="253"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/op_wh_delay" x="54" y="283"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/op_wh_protect" x="54" y="313"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_button_bar" y="414"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_button_bar" type="column_list" width="640" height="28" flags="pass_unhandled_to_focused_child left_right_tabs_items">
+		<data input="common button bar update"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_button_ok" x="380" y="1"/>
+		<child widget="common_button_cancel" x="510" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_button_ok" type="text" width="128" height="24" bitmap="bitmaps/text_button_background" string_list="strings/common_button_captions" string_index="1" font="ui\small_ui" color="#FFFFFFFF" align="center" text_y="2">
+		<on event="a" run="port setup options save" back="true"/>
+		<on event="start" run="port setup options save" back="true"/>
+		<on event="left_mouse" run="mouse emit accept event"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/op_wh_layers" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_layers_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_layers_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_layers_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_labels" string_index="0" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_layers_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/var_wh_layers" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/var_wh_layers">
+		<string text="OFF"/>
+		<string text="1"/>
+		<string text="2"/>
+		<string text="3"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/op_wh_amt1" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_amt1_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_amt1_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_amt1_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_labels" string_index="1" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_amt1_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/var_wh_amt1" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/var_wh_amt1">
+		<string text="25"/>
+		<string text="50"/>
+		<string text="75"/>
+		<string text="100"/>
+		<string text="150"/>
+		<string text="200"/>
+		<string text="300"/>
+		<string text="500"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/op_wh_amt2" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_amt2_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_amt2_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_amt2_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_labels" string_index="2" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_amt2_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/var_wh_amt2" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/var_wh_amt2">
+		<string text="25"/>
+		<string text="50"/>
+		<string text="75"/>
+		<string text="100"/>
+		<string text="150"/>
+		<string text="200"/>
+		<string text="300"/>
+		<string text="500"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/op_wh_amt3" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_amt3_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_amt3_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_amt3_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_labels" string_index="3" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_amt3_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/var_wh_amt3" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/var_wh_amt3">
+		<string text="25"/>
+		<string text="50"/>
+		<string text="75"/>
+		<string text="100"/>
+		<string text="150"/>
+		<string text="200"/>
+		<string text="300"/>
+		<string text="500"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/op_wh_rch1" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_rch1_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_rch1_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_rch1_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_labels" string_index="4" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_rch1_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/var_wh_rch1" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/var_wh_rch1">
+		<string text="2 S"/>
+		<string text="3 S"/>
+		<string text="5 S"/>
+		<string text="8 S"/>
+		<string text="10 S"/>
+		<string text="15 S"/>
+		<string text="20 S"/>
+		<string text="30 S"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/op_wh_rch2" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_rch2_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_rch2_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_rch2_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_labels" string_index="5" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_rch2_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/var_wh_rch2" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/var_wh_rch2">
+		<string text="2 S"/>
+		<string text="3 S"/>
+		<string text="5 S"/>
+		<string text="8 S"/>
+		<string text="10 S"/>
+		<string text="15 S"/>
+		<string text="20 S"/>
+		<string text="30 S"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/op_wh_rch3" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_rch3_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_rch3_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_rch3_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_labels" string_index="6" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_rch3_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/var_wh_rch3" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/var_wh_rch3">
+		<string text="2 S"/>
+		<string text="3 S"/>
+		<string text="5 S"/>
+		<string text="8 S"/>
+		<string text="10 S"/>
+		<string text="15 S"/>
+		<string text="20 S"/>
+		<string text="30 S"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/op_wh_delay" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_delay_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_delay_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_delay_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_labels" string_index="7" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_delay_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/var_wh_delay" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/var_wh_delay">
+		<string text="1 S"/>
+		<string text="2 S"/>
+		<string text="3 S"/>
+		<string text="4 S"/>
+		<string text="5 S"/>
+		<string text="7 S"/>
+		<string text="10 S"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/op_wh_protect" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_protect_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_protect_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_protect_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_labels" string_index="8" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_protect_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/var_wh_protect" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/var_wh_protect">
+		<string text="0%"/>
+		<string text="10%"/>
+		<string text="25%"/>
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="90%"/>
+		<string text="100%"/>
+	</strings>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/wh_shields_labels">
+		<string text="SHIELD LAYERS:"/>
+		<string text="LAYER 1 POINTS:"/>
+		<string text="LAYER 2 POINTS:"/>
+		<string text="LAYER 3 POINTS:"/>
+		<string text="LAYER 1 RECHARGE:"/>
+		<string text="LAYER 2 RECHARGE:"/>
+		<string text="LAYER 3 RECHARGE:"/>
+		<string text="RECHARGE DELAY:"/>
+		<string text="RIDER PROTECTION:"/>
+	</strings>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_shields/cap_wh_shields">
+		<string text="Warthogs have no shields, as stock."/>
+		<string text="Warthogs have 1 layer of shields; the outermost\nbreaks first."/>
+		<string text="Warthogs have 2 layers of shields; the outermost\nbreaks first."/>
+		<string text="Warthogs have 3 layers of shields; the outermost\nbreaks first."/>
+		<string text="Layer 1 (the outermost) holds 25 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 1 (the outermost) holds 50 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 1 (the outermost) holds 75 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 1 (the outermost) holds 100 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 1 (the outermost) holds 150 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 1 (the outermost) holds 200 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 1 (the outermost) holds 300 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 1 (the outermost) holds 500 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 2 holds 25 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 2 holds 50 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 2 holds 75 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 2 holds 100 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 2 holds 150 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 2 holds 200 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 2 holds 300 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 2 holds 500 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 3 holds 25 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 3 holds 50 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 3 holds 75 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 3 holds 100 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 3 holds 150 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 3 holds 200 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 3 holds 300 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 3 holds 500 points (a\nplayer's shields hold 75)."/>
+		<string text="Layer 1 recharges from empty in 2\nseconds."/>
+		<string text="Layer 1 recharges from empty in 3\nseconds."/>
+		<string text="Layer 1 recharges from empty in 5\nseconds."/>
+		<string text="Layer 1 recharges from empty in 8\nseconds."/>
+		<string text="Layer 1 recharges from empty in 10\nseconds."/>
+		<string text="Layer 1 recharges from empty in 15\nseconds."/>
+		<string text="Layer 1 recharges from empty in 20\nseconds."/>
+		<string text="Layer 1 recharges from empty in 30\nseconds."/>
+		<string text="Layer 2 recharges from empty in 2\nseconds."/>
+		<string text="Layer 2 recharges from empty in 3\nseconds."/>
+		<string text="Layer 2 recharges from empty in 5\nseconds."/>
+		<string text="Layer 2 recharges from empty in 8\nseconds."/>
+		<string text="Layer 2 recharges from empty in 10\nseconds."/>
+		<string text="Layer 2 recharges from empty in 15\nseconds."/>
+		<string text="Layer 2 recharges from empty in 20\nseconds."/>
+		<string text="Layer 2 recharges from empty in 30\nseconds."/>
+		<string text="Layer 3 recharges from empty in 2\nseconds."/>
+		<string text="Layer 3 recharges from empty in 3\nseconds."/>
+		<string text="Layer 3 recharges from empty in 5\nseconds."/>
+		<string text="Layer 3 recharges from empty in 8\nseconds."/>
+		<string text="Layer 3 recharges from empty in 10\nseconds."/>
+		<string text="Layer 3 recharges from empty in 15\nseconds."/>
+		<string text="Layer 3 recharges from empty in 20\nseconds."/>
+		<string text="Layer 3 recharges from empty in 30\nseconds."/>
+		<string text="The shields recharge 1 second after the last hit,\nfrom the inside out."/>
+		<string text="The shields recharge 2 seconds after the last hit,\nfrom the inside out."/>
+		<string text="The shields recharge 3 seconds after the last hit,\nfrom the inside out."/>
+		<string text="The shields recharge 4 seconds after the last hit,\nfrom the inside out."/>
+		<string text="The shields recharge 5 seconds after the last hit,\nfrom the inside out."/>
+		<string text="The shields recharge 7 seconds after the last hit,\nfrom the inside out."/>
+		<string text="The shields recharge 10 seconds after the last hit,\nfrom the inside out."/>
+		<string text="The shields take 0% of the damage that still\nreaches the riders."/>
+		<string text="The shields take 10% of the damage that still\nreaches the riders."/>
+		<string text="The shields take 25% of the damage that still\nreaches the riders."/>
+		<string text="The shields take 50% of the damage that still\nreaches the riders."/>
+		<string text="The shields take 75% of the damage that still\nreaches the riders."/>
+		<string text="The shields take 90% of the damage that still\nreaches the riders."/>
+		<string text="The shields take 100% of the damage that still\nreaches the riders."/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_vs_bul_screen" width="640" height="480" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/gradient">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/header_wh_vs_bul"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_vs_bul_menu"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/header_wh_vs_bul" controller="1" left="35" top="11" width="363" height="59" bitmap="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/header_wh_vs_bul">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_vs_bul_help" type="text" controller="1" left="68" top="341" width="482" height="79" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/cap_wh_vs_bul" font="ui\large_ui" color="#FFFFFFFF">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_vs_bul_menu" type="column_list" width="640" height="480" flags="pass_unhandled_to_focused_child up_down_tabs_children" description="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_vs_bul_help">
+		<data input="game settings lists text update"/>
+		<on event="created" run="port setup options init"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/op_wh_bul_shd" x="54" y="73"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/op_wh_bul_knk" x="54" y="103"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/op_wh_bul_pass" x="54" y="133"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_vs_bul_button_bar" y="414"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_vs_bul_button_bar" type="column_list" width="640" height="28" flags="pass_unhandled_to_focused_child left_right_tabs_items">
+		<data input="common button bar update"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_vs_bul_button_ok" x="380" y="1"/>
+		<child widget="common_button_cancel" x="510" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_vs_bul_button_ok" type="text" width="128" height="24" bitmap="bitmaps/text_button_background" string_list="strings/common_button_captions" string_index="1" font="ui\small_ui" color="#FFFFFFFF" align="center" text_y="2">
+		<on event="a" run="port setup options save" back="true"/>
+		<on event="start" run="port setup options save" back="true"/>
+		<on event="left_mouse" run="mouse emit accept event"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/op_wh_bul_shd" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_bul_shd_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_bul_shd_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_bul_shd_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_vs_bul_labels" string_index="0" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_bul_shd_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/var_wh_bul_shd" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/var_wh_bul_shd">
+		<string text="0%"/>
+		<string text="10%"/>
+		<string text="25%"/>
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="90%"/>
+		<string text="100%"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/op_wh_bul_knk" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_bul_knk_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_bul_knk_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_bul_knk_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_vs_bul_labels" string_index="1" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_bul_knk_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/var_wh_bul_knk" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/var_wh_bul_knk">
+		<string text="0%"/>
+		<string text="10%"/>
+		<string text="25%"/>
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="90%"/>
+		<string text="100%"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/op_wh_bul_pass" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_bul_pass_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_bul_pass_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_bul_pass_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_vs_bul_labels" string_index="2" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_bul_pass_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/var_wh_bul_pass" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/var_wh_bul_pass">
+		<string text="0%"/>
+		<string text="10%"/>
+		<string text="25%"/>
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="90%"/>
+		<string text="100%"/>
+	</strings>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/wh_vs_bul_labels">
+		<string text="SHIELD DAMAGE:"/>
+		<string text="KNOCKBACK:"/>
+		<string text="PASS-THROUGH:"/>
+	</strings>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_bul/cap_wh_vs_bul">
+		<string text="0% less shield drained by bullets."/>
+		<string text="10% less shield drained by bullets."/>
+		<string text="25% less shield drained by bullets."/>
+		<string text="50% less shield drained by bullets."/>
+		<string text="75% less shield drained by bullets."/>
+		<string text="90% less shield drained by bullets."/>
+		<string text="100% less shield drained by bullets."/>
+		<string text="0% less throw from bullets\nwhile the shields hold."/>
+		<string text="10% less throw from bullets\nwhile the shields hold."/>
+		<string text="25% less throw from bullets\nwhile the shields hold."/>
+		<string text="50% less throw from bullets\nwhile the shields hold."/>
+		<string text="75% less throw from bullets\nwhile the shields hold."/>
+		<string text="90% less throw from bullets\nwhile the shields hold."/>
+		<string text="100% less throw from bullets\nwhile the shields hold."/>
+		<string text="0% less damage and stun reach the riders from\nbullets."/>
+		<string text="10% less damage and stun reach the riders from\nbullets."/>
+		<string text="25% less damage and stun reach the riders from\nbullets."/>
+		<string text="50% less damage and stun reach the riders from\nbullets."/>
+		<string text="75% less damage and stun reach the riders from\nbullets."/>
+		<string text="90% less damage and stun reach the riders from\nbullets."/>
+		<string text="100% less damage and stun reach the riders from\nbullets."/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_vs_exp_screen" width="640" height="480" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/gradient">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/header_wh_vs_exp"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_vs_exp_menu"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/header_wh_vs_exp" controller="1" left="35" top="11" width="363" height="59" bitmap="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/header_wh_vs_exp">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_vs_exp_help" type="text" controller="1" left="68" top="341" width="482" height="79" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/cap_wh_vs_exp" font="ui\large_ui" color="#FFFFFFFF">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_vs_exp_menu" type="column_list" width="640" height="480" flags="pass_unhandled_to_focused_child up_down_tabs_children" description="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_vs_exp_help">
+		<data input="game settings lists text update"/>
+		<on event="created" run="port setup options init"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/op_wh_exp_shd" x="54" y="73"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/op_wh_exp_knk" x="54" y="103"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/op_wh_exp_pass" x="54" y="133"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_vs_exp_button_bar" y="414"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_vs_exp_button_bar" type="column_list" width="640" height="28" flags="pass_unhandled_to_focused_child left_right_tabs_items">
+		<data input="common button bar update"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_vs_exp_button_ok" x="380" y="1"/>
+		<child widget="common_button_cancel" x="510" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_vs_exp_button_ok" type="text" width="128" height="24" bitmap="bitmaps/text_button_background" string_list="strings/common_button_captions" string_index="1" font="ui\small_ui" color="#FFFFFFFF" align="center" text_y="2">
+		<on event="a" run="port setup options save" back="true"/>
+		<on event="start" run="port setup options save" back="true"/>
+		<on event="left_mouse" run="mouse emit accept event"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/op_wh_exp_shd" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_exp_shd_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_exp_shd_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_exp_shd_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_vs_exp_labels" string_index="0" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_exp_shd_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/var_wh_exp_shd" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/var_wh_exp_shd">
+		<string text="0%"/>
+		<string text="10%"/>
+		<string text="25%"/>
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="90%"/>
+		<string text="100%"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/op_wh_exp_knk" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_exp_knk_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_exp_knk_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_exp_knk_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_vs_exp_labels" string_index="1" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_exp_knk_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/var_wh_exp_knk" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/var_wh_exp_knk">
+		<string text="0%"/>
+		<string text="10%"/>
+		<string text="25%"/>
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="90%"/>
+		<string text="100%"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/op_wh_exp_pass" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_exp_pass_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_exp_pass_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_exp_pass_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_vs_exp_labels" string_index="2" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_exp_pass_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/var_wh_exp_pass" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/var_wh_exp_pass">
+		<string text="0%"/>
+		<string text="10%"/>
+		<string text="25%"/>
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="90%"/>
+		<string text="100%"/>
+	</strings>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/wh_vs_exp_labels">
+		<string text="SHIELD DAMAGE:"/>
+		<string text="KNOCKBACK:"/>
+		<string text="PASS-THROUGH:"/>
+	</strings>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_exp/cap_wh_vs_exp">
+		<string text="0% less shield drained by explosives."/>
+		<string text="10% less shield drained by explosives."/>
+		<string text="25% less shield drained by explosives."/>
+		<string text="50% less shield drained by explosives."/>
+		<string text="75% less shield drained by explosives."/>
+		<string text="90% less shield drained by explosives."/>
+		<string text="100% less shield drained by explosives."/>
+		<string text="0% less throw from explosives\nwhile the shields hold."/>
+		<string text="10% less throw from explosives\nwhile the shields hold."/>
+		<string text="25% less throw from explosives\nwhile the shields hold."/>
+		<string text="50% less throw from explosives\nwhile the shields hold."/>
+		<string text="75% less throw from explosives\nwhile the shields hold."/>
+		<string text="90% less throw from explosives\nwhile the shields hold."/>
+		<string text="100% less throw from explosives\nwhile the shields hold."/>
+		<string text="0% less damage and stun reach the riders from\nexplosives."/>
+		<string text="10% less damage and stun reach the riders from\nexplosives."/>
+		<string text="25% less damage and stun reach the riders from\nexplosives."/>
+		<string text="50% less damage and stun reach the riders from\nexplosives."/>
+		<string text="75% less damage and stun reach the riders from\nexplosives."/>
+		<string text="90% less damage and stun reach the riders from\nexplosives."/>
+		<string text="100% less damage and stun reach the riders from\nexplosives."/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_vs_pla_screen" width="640" height="480" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/gradient">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/header_wh_vs_pla"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_vs_pla_menu"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/header_wh_vs_pla" controller="1" left="35" top="11" width="363" height="59" bitmap="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/header_wh_vs_pla">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_vs_pla_help" type="text" controller="1" left="68" top="341" width="482" height="79" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/cap_wh_vs_pla" font="ui\large_ui" color="#FFFFFFFF">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_vs_pla_menu" type="column_list" width="640" height="480" flags="pass_unhandled_to_focused_child up_down_tabs_children" description="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_vs_pla_help">
+		<data input="game settings lists text update"/>
+		<on event="created" run="port setup options init"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/op_wh_pla_shd" x="54" y="73"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/op_wh_pla_knk" x="54" y="103"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/op_wh_pla_pass" x="54" y="133"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_vs_pla_button_bar" y="414"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_vs_pla_button_bar" type="column_list" width="640" height="28" flags="pass_unhandled_to_focused_child left_right_tabs_items">
+		<data input="common button bar update"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_vs_pla_button_ok" x="380" y="1"/>
+		<child widget="common_button_cancel" x="510" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_vs_pla_button_ok" type="text" width="128" height="24" bitmap="bitmaps/text_button_background" string_list="strings/common_button_captions" string_index="1" font="ui\small_ui" color="#FFFFFFFF" align="center" text_y="2">
+		<on event="a" run="port setup options save" back="true"/>
+		<on event="start" run="port setup options save" back="true"/>
+		<on event="left_mouse" run="mouse emit accept event"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/op_wh_pla_shd" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_pla_shd_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_pla_shd_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_pla_shd_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_vs_pla_labels" string_index="0" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_pla_shd_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/var_wh_pla_shd" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/var_wh_pla_shd">
+		<string text="0%"/>
+		<string text="10%"/>
+		<string text="25%"/>
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="90%"/>
+		<string text="100%"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/op_wh_pla_knk" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_pla_knk_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_pla_knk_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_pla_knk_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_vs_pla_labels" string_index="1" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_pla_knk_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/var_wh_pla_knk" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/var_wh_pla_knk">
+		<string text="0%"/>
+		<string text="10%"/>
+		<string text="25%"/>
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="90%"/>
+		<string text="100%"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/op_wh_pla_pass" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_pla_pass_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_pla_pass_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_pla_pass_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_vs_pla_labels" string_index="2" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_pla_pass_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/var_wh_pla_pass" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/var_wh_pla_pass">
+		<string text="0%"/>
+		<string text="10%"/>
+		<string text="25%"/>
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="90%"/>
+		<string text="100%"/>
+	</strings>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/wh_vs_pla_labels">
+		<string text="SHIELD DAMAGE:"/>
+		<string text="KNOCKBACK:"/>
+		<string text="PASS-THROUGH:"/>
+	</strings>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_pla/cap_wh_vs_pla">
+		<string text="0% less shield drained by plasma bullets."/>
+		<string text="10% less shield drained by plasma bullets."/>
+		<string text="25% less shield drained by plasma bullets."/>
+		<string text="50% less shield drained by plasma bullets."/>
+		<string text="75% less shield drained by plasma bullets."/>
+		<string text="90% less shield drained by plasma bullets."/>
+		<string text="100% less shield drained by plasma bullets."/>
+		<string text="0% less throw from plasma bullets\nwhile the shields hold."/>
+		<string text="10% less throw from plasma bullets\nwhile the shields hold."/>
+		<string text="25% less throw from plasma bullets\nwhile the shields hold."/>
+		<string text="50% less throw from plasma bullets\nwhile the shields hold."/>
+		<string text="75% less throw from plasma bullets\nwhile the shields hold."/>
+		<string text="90% less throw from plasma bullets\nwhile the shields hold."/>
+		<string text="100% less throw from plasma bullets\nwhile the shields hold."/>
+		<string text="0% less damage and stun reach the riders from\nplasma bullets."/>
+		<string text="10% less damage and stun reach the riders from\nplasma bullets."/>
+		<string text="25% less damage and stun reach the riders from\nplasma bullets."/>
+		<string text="50% less damage and stun reach the riders from\nplasma bullets."/>
+		<string text="75% less damage and stun reach the riders from\nplasma bullets."/>
+		<string text="90% less damage and stun reach the riders from\nplasma bullets."/>
+		<string text="100% less damage and stun reach the riders from\nplasma bullets."/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_vs_plx_screen" width="640" height="480" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/gradient">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/header_wh_vs_plx"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_vs_plx_menu"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/header_wh_vs_plx" controller="1" left="35" top="11" width="363" height="59" bitmap="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/header_wh_vs_plx">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_vs_plx_help" type="text" controller="1" left="68" top="341" width="482" height="79" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/cap_wh_vs_plx" font="ui\large_ui" color="#FFFFFFFF">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_vs_plx_menu" type="column_list" width="640" height="480" flags="pass_unhandled_to_focused_child up_down_tabs_children" description="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_vs_plx_help">
+		<data input="game settings lists text update"/>
+		<on event="created" run="port setup options init"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/op_wh_plx_shd" x="54" y="73"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/op_wh_plx_knk" x="54" y="103"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/op_wh_plx_pass" x="54" y="133"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_vs_plx_button_bar" y="414"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_vs_plx_button_bar" type="column_list" width="640" height="28" flags="pass_unhandled_to_focused_child left_right_tabs_items">
+		<data input="common button bar update"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_vs_plx_button_ok" x="380" y="1"/>
+		<child widget="common_button_cancel" x="510" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_vs_plx_button_ok" type="text" width="128" height="24" bitmap="bitmaps/text_button_background" string_list="strings/common_button_captions" string_index="1" font="ui\small_ui" color="#FFFFFFFF" align="center" text_y="2">
+		<on event="a" run="port setup options save" back="true"/>
+		<on event="start" run="port setup options save" back="true"/>
+		<on event="left_mouse" run="mouse emit accept event"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/op_wh_plx_shd" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_plx_shd_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_plx_shd_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_plx_shd_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_vs_plx_labels" string_index="0" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_plx_shd_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/var_wh_plx_shd" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/var_wh_plx_shd">
+		<string text="0%"/>
+		<string text="10%"/>
+		<string text="25%"/>
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="90%"/>
+		<string text="100%"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/op_wh_plx_knk" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_plx_knk_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_plx_knk_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_plx_knk_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_vs_plx_labels" string_index="1" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_plx_knk_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/var_wh_plx_knk" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/var_wh_plx_knk">
+		<string text="0%"/>
+		<string text="10%"/>
+		<string text="25%"/>
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="90%"/>
+		<string text="100%"/>
+	</strings>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/op_wh_plx_pass" width="512" height="28" flags="pass_unhandled_to_focused_child" bitmap="bitmaps/option_bkds" color="#FF2896FF">
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_plx_pass_label"/>
+		<child widget="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_plx_pass_spinner" x="286" y="1"/>
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_plx_pass_label" type="text" controller="1" width="300" height="22" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_vs_plx_labels" string_index="2" font="ui\large_ui" color="#FF2896FF" text_x="13" text_y="4">
+	</widget>
+	<widget name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_plx_pass_spinner" type="spinner" top="2" width="206" height="20" flags="pass_unhandled_to_focused_child left_right_tabs_items" string_list="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/var_wh_plx_pass" font="ui\large_ui" color="#FF2896FF" align="center" text_y="4" list_flags="items_from_strings" header_bitmap="bitmaps/arrow_sm_left" footer_bitmap="bitmaps/arrow_sm_right" header_bounds="7 -13 19 -7" footer_bounds="7 208 19 214">
+		<on event="left_mouse" run="mouse spinner 1wide click"/>
+	</widget>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/var_wh_plx_pass">
+		<string text="0%"/>
+		<string text="10%"/>
+		<string text="25%"/>
+		<string text="50%"/>
+		<string text="75%"/>
+		<string text="90%"/>
+		<string text="100%"/>
+	</strings>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/wh_vs_plx_labels">
+		<string text="SHIELD DAMAGE:"/>
+		<string text="KNOCKBACK:"/>
+		<string text="PASS-THROUGH:"/>
+	</strings>
+	<strings name="main_menu/multiplayer_type_select/server_settings/warthog_options/wh_vs_plx/cap_wh_vs_plx">
+		<string text="0% less shield drained by plasma explosives."/>
+		<string text="10% less shield drained by plasma explosives."/>
+		<string text="25% less shield drained by plasma explosives."/>
+		<string text="50% less shield drained by plasma explosives."/>
+		<string text="75% less shield drained by plasma explosives."/>
+		<string text="90% less shield drained by plasma explosives."/>
+		<string text="100% less shield drained by plasma explosives."/>
+		<string text="0% less throw from plasma explosives\nwhile the shields hold."/>
+		<string text="10% less throw from plasma explosives\nwhile the shields hold."/>
+		<string text="25% less throw from plasma explosives\nwhile the shields hold."/>
+		<string text="50% less throw from plasma explosives\nwhile the shields hold."/>
+		<string text="75% less throw from plasma explosives\nwhile the shields hold."/>
+		<string text="90% less throw from plasma explosives\nwhile the shields hold."/>
+		<string text="100% less throw from plasma explosives\nwhile the shields hold."/>
+		<string text="0% less damage and stun reach the riders from\nplasma explosives."/>
+		<string text="10% less damage and stun reach the riders from\nplasma explosives."/>
+		<string text="25% less damage and stun reach the riders from\nplasma explosives."/>
+		<string text="50% less damage and stun reach the riders from\nplasma explosives."/>
+		<string text="75% less damage and stun reach the riders from\nplasma explosives."/>
+		<string text="90% less damage and stun reach the riders from\nplasma explosives."/>
+		<string text="100% less damage and stun reach the riders from\nplasma explosives."/>
 	</strings>
 </menus>

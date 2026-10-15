@@ -81,6 +81,10 @@ void network_game_server_port_set_cooperative_friendly_fire(
 PLAYER COLLISIONS), kept for the levels after */
 void network_game_server_port_set_cooperative_player_collisions(
 	boolean player_collisions);
+/* port: Server Setup's WARTHOG OPTIONS (port/linux/game/warthog_options.c) */
+struct warthog_options;
+void network_game_server_port_set_warthog_options(
+	struct warthog_options const *options);
 boolean network_game_server_ban_player(
 	char const *text);
 /* port: the host's kick command: as the ban command, but nothing kept (no

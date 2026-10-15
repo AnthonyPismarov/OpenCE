@@ -3,7 +3,7 @@
 
 Taken from the sources: the game's message numbers, sizes and fields
 (network_messages.c, .h) and the distributed netcode's (network_*.c, .h,
-map_share*.c, .h): the enums with _distributed_ members, the DISTRIBUTED_
+map_share*.c, .h, warthog_options.c, .h): the enums with _distributed_ members, the DISTRIBUTED_
 constants, the structs sent whole (the _message structs, those whose size is
 taken, and the structs in them) as hashes, and the constants their arrays
 are sized by, as their definitions. An entry the netcode packs itself (a
@@ -45,6 +45,7 @@ def items():
     """the wire format's items, name to value"""
     paths = sorted((ROOT / "port/linux/game").glob("network_*.[ch]"))
     paths += sorted((ROOT / "port/linux/game").glob("map_share*.[ch]"))
+    paths += sorted((ROOT / "port/linux/game").glob("warthog_options.[ch]"))
     paths += [ROOT / "source/networking/network_messages.c", ROOT / "source/networking/network_messages.h"]
     texts = [re.sub(r"/\*.*?\*/|//[^\n]*", " ", path.read_text(encoding="latin-1"), flags=re.S) for path in paths]
     everything = "\n".join(texts)

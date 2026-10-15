@@ -138,6 +138,7 @@ symbols in this file:
 #include "custom_edition_cache.h" /* port: port/linux/game/custom_edition_cache.c */
 #include "cache_file_formats.h" /* port: CUSTOM_EDITION_TAG_CACHE_BYTES */
 #include "map_share.h" /* port: port/linux/game/map_share.c */
+#include "halo_warthog_options.h" /* port: port/linux/game/warthog_options.c */
 
 /* ---------- constants */
 
@@ -1213,6 +1214,8 @@ long scenario_tags_load(
 
 				loose_sounds_tags_loaded();
 			}
+			/* (and Server Setup's WARTHOG OPTIONS, as below) */
+			warthog_options_tags_loaded();
 			result = cache_file_globals.tag_header->scenario_tag_index;
 		}
 
@@ -1296,6 +1299,9 @@ long scenario_tags_load(
 
 				pal_tags_loaded(cache_file_globals.header.build);
 			}
+			/* port: the Warthogs tuned by the network game's WARTHOG OPTIONS
+			(port/linux/game/warthog_options.c), after the PAL map's values */
+			warthog_options_tags_loaded();
 			/* port: the powerups' render spheres, grown to hold their meshes
 			(port/linux/game/powerup_render_bounds.c) */
 			{

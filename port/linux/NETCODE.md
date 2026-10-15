@@ -201,7 +201,13 @@ limits, and readies a second weapon picked up while firing; version 29 names
 a Custom Edition map by its own name (`custom_maps\hugeass`, which every
 screen shows) and says which version it is by the map version of the game
 record, its hash's first 32 bits (the header checksum before), which a
-client finds its file by (below, "Map sharing").
+client finds its file by (below, "Map sharing"); version 30 adds Server
+Setup's WARTHOG OPTIONS to the game record (`struct warthog_options`,
+`port/linux/game/warthog_options.c`: the Warthogs' tuning, which every
+machine applies to its tags before the map loads, and their shields), the
+Warthogs' shields the host sends its clients
+(`_distributed_message_warthog_shields`), and to each damage event how much
+of its knockback and stun the shields took (in the record's padding).
 
 `port/linux/network_format.txt` records the wire format of the current
 version (`tools/network_format.py`): `test_linux_port.py` fails when the

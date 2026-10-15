@@ -872,8 +872,8 @@ def _server_settings() -> list:
     whether the server browser lists it (PUBLIC or PRIVATE: an internet
     game's)"""
     base = f"{MT}/server_settings"
-    # (twelve rows: closer together, the help lower)
-    spec = {"screen": "server_settings_screen", "spacing": 24, "help_top": 366,
+    # (thirteen rows: closer together, the help lower)
+    spec = {"screen": "server_settings_screen", "spacing": 22, "help_top": 368,
             "header": ("header_server_settings", f"{base}/header_server_settings")}
     rows, extra = [], []
     extra += _value_row(base, "server_name", 0, "ss edit server name")
@@ -935,6 +935,22 @@ def _server_settings() -> list:
                                              ("string_index", 11 + len(COOP_SETUP_SCREENS)),
                                              ("font", "ui\\large_ui"), ("color", "#FF2896FF"), ("text_x", 13),
                                              ("text_y", 4)], [])
+    rows.append((f"{base}/op_{key}", None, SETUP_OPTIONS_PLACE - 2))
+    # WARTHOG OPTIONS (warthog_options.c), a screen of its screens, for any
+    # game: below MAP SHARING
+    key = WARTHOG_SETUP[0]
+    target = f"{base}/{key}/{key}_screen"
+    extra += _widget(f"{base}/op_{key}", [("width", 512), ("height", 28),
+                                         ("flags", "pass_unhandled_to_focused_child"),
+                                         ("bitmap", "bitmaps/option_bkds"), ("color", "#FF2896FF")],
+                     [f'<on event="a" open="{target}"/>', f'<on event="start" open="{target}"/>',
+                      '<on event="left_mouse" run="mouse emit accept event"/>',
+                      f'<child widget="{base}/{key}_label"/>'])
+    extra += _widget(f"{base}/{key}_label", [("type", "text"), ("controller", 1), ("width", 300), ("height", 22),
+                                             ("string_list", f"{base}/labels"),
+                                             ("string_index", 12 + len(COOP_SETUP_SCREENS)),
+                                             ("font", "ui\\large_ui"), ("color", "#FF2896FF"), ("text_x", 13),
+                                             ("text_y", 4)], [])
     rows.append((f"{base}/op_{key}", None, SETUP_OPTIONS_PLACE - 1))
     # co-op's options, in the place of the gametype's rows, which co-op hides
     # as multiplayer hides co-op's (menu_functions.c's server_settings_update):
@@ -984,7 +1000,7 @@ def _server_settings() -> list:
                                          "PLAYER OPTIONS:", "ITEM OPTIONS:", "VEHICLE OPTIONS:", "INDICATOR OPTIONS:",
                                          "TEAMPLAY OPTIONS:", "LISTING:",
                                          *(f"{title}:" for _, title, _, _ in COOP_SETUP_SCREENS), "PASSWORD:",
-                                         f"{MAP_SHARE_SETUP[1]}:"])
+                                         f"{MAP_SHARE_SETUP[1]}:", f"{WARTHOG_SETUP[1]}:"])
     extra += _strings(f"{base}/help_strings", [
         "",
         "The name the game shows in the lists of games.\\nEnter changes it.",
@@ -1005,12 +1021,18 @@ def _server_settings() -> list:
         "Players from the Server Browser must type it to\\njoin (an invite link needs none). Enter sets it.",
         # (MAP SHARING's)
         MAP_SHARE_SETUP[2],
+        # (WARTHOG OPTIONS')
+        WARTHOG_SETUP[2],
     ])
     lines = _screen(base, spec, rows, ["server settings update"],
                     ['<on event="created" run="server settings init"/>'], extra)
     # (co-op's options' screens, and map sharing's)
     for key, title, _, screen_rows in [*COOP_SETUP_SCREENS, MAP_SHARE_SETUP]:
         lines += _setup_option_screen(f"{base}/{key}", key, screen_rows)
+    # (WARTHOG OPTIONS' screen, and its screens)
+    lines += _setup_category_screen(f"{base}/{WARTHOG_SETUP[0]}", WARTHOG_SETUP[0],
+                                    "Each screen sets part of the Warthogs' options;\\nevery player's game takes yours.",
+                                    WARTHOG_SETUP_SCREENS, WARTHOG_SETUP_LABELS)
     # (no Defaults: the bar is START and CANCEL; B cancels the name's edit
     # first)
     lines = [line.replace(f'<child widget="{base}/button_defaults" y="1"/>', "") for line in lines]
@@ -1069,12 +1091,98 @@ MAP_SHARE_SETUP = ("map_share_options", "MAP SHARING",
                                            for kb in MAP_SHARE_UPLOADS],
      ["The most you send of maps, so that the game\\nkeeps the rest of your upload."] * len(MAP_SHARE_UPLOADS)),
 ])
+# Server Setup's WARTHOG OPTIONS (port/linux/game/warthog_options.c), for any
+# game: a screen of its screens (WARTHOG_SETUP), each laid out as co-op's
+# options are (its key, its title, its row's help and its rows:
+# menu_functions.c's gametype_options give their settings' values, the
+# warthog.* settings)
+WARTHOG_PERCENTAGES = [50, 75, 100, 125, 150, 200, 300]
+WARTHOG_ACCURACIES = [50, 75, 100, 150, 200, 400]
+WARTHOG_HEADSHOTS = [("STOCK", None), ("1.5X", 150), ("2X", 200), ("3X", 300), ("5X", 500)]
+WARTHOG_AIM_RANGES = [("STOCK", None), ("90 DEGREES", 90), ("120 DEGREES", 120), ("180 DEGREES", 180),
+                      ("240 DEGREES", 240), ("ALL AROUND", 360)]
+WARTHOG_SHIELD_AMOUNTS = [25, 50, 75, 100, 150, 200, 300, 500]
+WARTHOG_RECHARGE_TIMES = [2, 3, 5, 8, 10, 15, 20, 30]
+WARTHOG_RECHARGE_DELAYS = [1, 2, 3, 4, 5, 7, 10]
+WARTHOG_REDUCTIONS = [0, 10, 25, 50, 75, 90, 100]
+# (each kind of damage the shields tell apart: its key, its screen's title
+# (short enough for the header), its row's label on WARTHOG OPTIONS and what
+# it is)
+WARTHOG_DAMAGE_KINDS = [
+    ("bul", "VS BULLETS", "SHIELDS VS BULLETS", "bullets (rifles, pistols, snipers, shotguns,\\nmounted guns)"),
+    ("exp", "VS EXPLOSIVES", "SHIELDS VS EXPLOSIVES", "explosives (frag grenades, rockets, tank shells)"),
+    ("pla", "VS PLASMA", "SHIELDS VS PLASMA", "plasma bullets (plasma bolts, needles)"),
+    ("plx", "VS PLASMA BLASTS", "SHIELDS VS PLASMA BLASTS",
+     "plasma explosives (plasma grenades, fuel rods,\\nthe Banshee's)"),
+]
+# (WARTHOG OPTIONS' rows' labels where they are not their screens' titles)
+WARTHOG_SETUP_LABELS = {f"wh_vs_{key}": label for key, _, label, _ in WARTHOG_DAMAGE_KINDS}
+
+
+def _percent_row(key: str, label: str, values: list, help_text: str) -> tuple:
+    return (key, label, [f"{value}%" for value in values], [help_text.format(value) for value in values])
+
+
+def _warthog_kind_rows(key: str, what: str) -> list:
+    return [
+        _percent_row(f"wh_{key}_shd", "SHIELD DAMAGE:", WARTHOG_REDUCTIONS,
+                     "{}% less shield drained by " + what.split(" (")[0] + "."),
+        _percent_row(f"wh_{key}_knk", "KNOCKBACK:", WARTHOG_REDUCTIONS,
+                     "{}% less throw from " + what.split(" (")[0] + "\\nwhile the shields hold."),
+        _percent_row(f"wh_{key}_pass", "PASS-THROUGH:", WARTHOG_REDUCTIONS,
+                     "{}% less damage and stun reach the riders from\\n" + what.split(" (")[0] + "."),
+    ]
+
+
+WARTHOG_SETUP_SCREENS = [
+    ("wh_tuning", "WARTHOG TUNING", "How the Warthogs drive and how their turrets fire,\\nfor this game.", [
+        _percent_row("wh_accel", "ACCELERATION:", WARTHOG_PERCENTAGES, "Warthogs gather speed at {}% of stock."),
+        _percent_row("wh_speed", "TOP SPEED:", WARTHOG_PERCENTAGES, "Warthogs' top speed is {}% of stock."),
+        _percent_row("wh_steer", "STEERING:", WARTHOG_PERCENTAGES,
+                     "Warthogs steer {}% as sharply and as fast as\\nstock."),
+        ("wh_aim", "PASSENGER AIM:", [shown for shown, _ in WARTHOG_AIM_RANGES],
+         ["The passenger turns as far as stock."] +
+         [f"The passenger turns {degrees} degrees in their seat." for _, degrees in WARTHOG_AIM_RANGES[1:-1]] +
+         ["The passenger turns all the way round."]),
+        _percent_row("wh_tacc", "TURRET ACCURACY:", WARTHOG_ACCURACIES,
+                     "The turret is {}% as accurate as stock (200%:\\nits shots spread half as wide)."),
+        _percent_row("wh_trof", "TURRET FIRE RATE:", WARTHOG_PERCENTAGES, "The turret fires {}% as fast as stock."),
+        _percent_row("wh_tdmg", "TURRET DAMAGE:", WARTHOG_PERCENTAGES, "The turret deals {}% of its stock damage."),
+        ("wh_thead", "TURRET HEADSHOTS:", [shown for shown, _ in WARTHOG_HEADSHOTS],
+         ["The turret's head hits are as stock."] +
+         [f"The turret's hits on the head deal {shown.lower()} damage." for shown, _ in WARTHOG_HEADSHOTS[1:]]),
+    ]),
+    ("wh_shields", "WARTHOG SHIELDS", "Shields for the Warthogs and their riders, for\\nthis game.", [
+        ("wh_layers", "SHIELD LAYERS:", ["OFF", "1", "2", "3"],
+         ["Warthogs have no shields, as stock."] +
+         [f"Warthogs have {count} layer{'s' if count > 1 else ''} of shields; the outermost\\nbreaks first."
+          for count in (1, 2, 3)]),
+        *[(f"wh_amt{layer}", f"LAYER {layer} POINTS:", [str(points) for points in WARTHOG_SHIELD_AMOUNTS],
+           [f"Layer {layer}{' (the outermost)' if layer == 1 else ''} holds {points} points (a\\nplayer's shields hold 75)."
+            for points in WARTHOG_SHIELD_AMOUNTS]) for layer in (1, 2, 3)],
+        *[(f"wh_rch{layer}", f"LAYER {layer} RECHARGE:", [f"{seconds} S" for seconds in WARTHOG_RECHARGE_TIMES],
+           [f"Layer {layer} recharges from empty in {seconds}\\nseconds." for seconds in WARTHOG_RECHARGE_TIMES])
+          for layer in (1, 2, 3)],
+        ("wh_delay", "RECHARGE DELAY:", [f"{seconds} S" for seconds in WARTHOG_RECHARGE_DELAYS],
+         [f"The shields recharge {seconds} second{'s' if seconds > 1 else ''} after the last hit,\\nfrom the inside out."
+          for seconds in WARTHOG_RECHARGE_DELAYS]),
+        _percent_row("wh_protect", "RIDER PROTECTION:", WARTHOG_REDUCTIONS,
+                     "The shields take {}% of the damage that still\\nreaches the riders."),
+    ]),
+    *[(f"wh_vs_{key}", title, f"What the shields hold back of {what}.", _warthog_kind_rows(key, what))
+      for key, title, _, what in WARTHOG_DAMAGE_KINDS],
+]
+WARTHOG_SETUP = ("warthog_options", "WARTHOG OPTIONS",
+                 "Tune the Warthogs and give them shields, for this\\ngame (every player's game takes yours).")
 # (Server Setup's place of its options' rows, co-op's or the gametype's: after
-# MAP SHARING's)
-SETUP_OPTIONS_PLACE = 6
+# MAP SHARING's and WARTHOG OPTIONS')
+SETUP_OPTIONS_PLACE = 7
 # (their screens' titles)
 TITLES.update({f"{MT}/server_settings/{key}/header_{key}": title
                for key, title, _, _ in [*COOP_SETUP_SCREENS, MAP_SHARE_SETUP]})
+TITLES[f"{MT}/server_settings/{WARTHOG_SETUP[0]}/header_{WARTHOG_SETUP[0]}"] = WARTHOG_SETUP[1]
+TITLES.update({f"{MT}/server_settings/{WARTHOG_SETUP[0]}/{key}/header_{key}": title
+               for key, title, _, _ in WARTHOG_SETUP_SCREENS})
 # (the rows of a co-op options screen in one place, the one shown: PER
 # PLAYER's and MULTIPLIER's, by EXTRA ENEMIES')
 SETUP_OPTION_SAME_PLACE = {"coop_enemies_multiplier"}
@@ -1134,6 +1242,48 @@ def _setup_option_screen(base: str, key: str, rows: list) -> list:
     lines += _strings(f"{base}/{key}_labels", [label for _, label, *_ in rows])
     lines += _strings(f"{base}/cap_{key}", [text for *_, helps in rows for text in helps])
     return lines
+def _setup_category_screen(base: str, key: str, help_text: str, screens: list, labels: dict) -> list:
+    """a screen of rows each opening a screen of options (WARTHOG OPTIONS'),
+    laid out as those are (_setup_option_screen), its help one line for all
+    of them, and OK going back"""
+    lines = _widget(f"{base}/{key}_screen", [("width", 640), ("height", 480),
+                                            ("flags", "pass_unhandled_to_focused_child"),
+                                            ("bitmap", "bitmaps/gradient")],
+                    [f'<child widget="{base}/header_{key}"/>', f'<child widget="{base}/{key}_menu"/>'])
+    lines += _header(f"{base}/header_{key}", f"{base}/header_{key}")
+    lines += _widget(f"{base}/{key}_help", [("type", "text"), ("controller", 1), ("left", 68), ("top", 341),
+                                           ("width", 482), ("height", 79), ("string_list", f"{base}/cap_{key}"),
+                                           ("font", "ui\\large_ui"), ("color", "#FFFFFFFF")], [])
+    children = [f'<child widget="{base}/op_{screen_key}" x="54" y="{73 + 30 * place}"/>'
+                for place, (screen_key, *_) in enumerate(screens)]
+    children.append(f'<child widget="{base}/{key}_button_bar" y="414"/>')
+    lines += _widget(f"{base}/{key}_menu", [("type", "column_list"), ("width", 640), ("height", 480),
+                                           ("flags", "pass_unhandled_to_focused_child up_down_tabs_children"),
+                                           ("description", f"{base}/{key}_help")], children)
+    lines += _widget(f"{base}/{key}_button_bar", [("type", "column_list"), ("width", 640), ("height", 28),
+                                                 ("flags", "pass_unhandled_to_focused_child left_right_tabs_items")],
+                     ['<data input="common button bar update"/>', f'<child widget="{base}/{key}_button_ok" x="510" y="1"/>'])
+    lines += _button(f"{base}/{key}_button_ok", 1, ['<on event="a" back="true"/>', '<on event="start" back="true"/>'])
+    for index, (screen_key, title, _, _) in enumerate(screens):
+        target = f"{base}/{screen_key}/{screen_key}_screen"
+        lines += _widget(f"{base}/op_{screen_key}", [("width", 512), ("height", 28),
+                                                    ("flags", "pass_unhandled_to_focused_child"),
+                                                    ("bitmap", "bitmaps/option_bkds"), ("color", "#FF2896FF")],
+                         [f'<on event="a" open="{target}"/>', f'<on event="start" open="{target}"/>',
+                          '<on event="left_mouse" run="mouse emit accept event"/>',
+                          f'<child widget="{base}/{screen_key}_label"/>'])
+        lines += _widget(f"{base}/{screen_key}_label", [("type", "text"), ("controller", 1), ("width", 480),
+                                                       ("height", 22), ("string_list", f"{base}/{key}_labels"),
+                                                       ("string_index", index), ("font", "ui\\large_ui"),
+                                                       ("color", "#FF2896FF"), ("text_x", 13), ("text_y", 4)], [])
+    lines += _strings(f"{base}/{key}_labels",
+                      [f"{labels.get(screen_key, title)}..." for screen_key, title, _, _ in screens])
+    lines += _strings(f"{base}/cap_{key}", [help_text])
+    for screen_key, _, _, rows in screens:
+        lines += _setup_option_screen(f"{base}/{screen_key}", screen_key, rows)
+    return lines
+
+
 # Server Setup's rows of the gametype's options: the gametype editor's
 # screens
 SETUP_OPTION_SCREENS = [

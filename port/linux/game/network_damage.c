@@ -56,6 +56,7 @@ being hit looks and feels like on the clients).
 #include "scenario/scenario.h"
 #include "units/units.h"
 #include "network_distributed.h"
+#include "warthog_options.h"
 
 #include <math.h>
 
@@ -251,7 +252,9 @@ struct distributed_damage
 	long definition_index;
 	unsigned long flags;
 	byte owner_player_index;
-	byte pad;
+	/* (a damage event's) how much of its knockback a Warthog's shields took,
+	of 255 (warthog_options.c) */
+	byte knockback_reduction;
 	short owner_team_index;
 	long owner_object_index;
 	real_point3d origin;
@@ -261,7 +264,9 @@ struct distributed_damage
 	real multiplier;
 	real material_effect_scale;
 	short material_type;
-	short pad1;
+	/* (a damage event's) how much of its stun a Warthog's shields took, of
+	255 (warthog_options.c) */
+	short stun_reduction;
 };
 
 typedef char distributed_damage_size_assert[sizeof(struct distributed_damage) == 0x44 ? 1 : -1];
@@ -469,6 +474,10 @@ static void distributed_damage_from_data(
 	result->multiplier = damage->multiplier;
 	result->material_effect_scale = damage->material_effect_scale;
 	result->material_type = damage->material_type;
+	/* (what a Warthog's shields took of the damage dealt: damage.c's scales,
+	set around its aftermath) */
+	result->knockback_reduction = (byte)PIN((1.0f - warthog_damage_acceleration_scale) * 255.0f + 0.5f, 0.0f, 255.0f);
+	result->stun_reduction = (short)PIN((1.0f - warthog_damage_stun_scale) * 255.0f + 0.5f, 0.0f, 255.0f);
 }
 
 /* the damage as this machine has it, FALSE if it cannot be */
@@ -2197,6 +2206,9 @@ void network_damage_handle_events(
 			continue;
 		}
 		damage_replayed_events++;
+		/* (the knockback and stun as the host's Warthog shields left them) */
+		warthog_damage_acceleration_scale = 1.0f - (real)event->damage.knockback_reduction / 255.0f;
+		warthog_damage_stun_scale = 1.0f - (real)PIN(event->damage.stun_reduction, 0, 255) / 255.0f;
 		switch (event->kind)
 		{
 		case _damage_event_player_effect:
@@ -2264,6 +2276,8 @@ void network_damage_handle_events(
 			}
 			break;
 		}
+		warthog_damage_acceleration_scale = 1.0f;
+		warthog_damage_stun_scale = 1.0f;
 	}
 }
 

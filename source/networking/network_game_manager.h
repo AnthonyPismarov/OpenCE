@@ -12,6 +12,7 @@ header included in hcex build.
 
 #include "game/game_engine.h"
 #include "game/players.h"
+#include "halo_warthog_options.h" /* port */
 
 /* ---------- constants */
 
@@ -74,6 +75,8 @@ struct network_game
 	long number_of_games_played;
 	/* port: the gametype's PC options (game_engine.h) */
 	struct game_variant_options variant_options;
+	/* port: Server Setup's WARTHOG OPTIONS (port/linux/game/warthog_options.c) */
+	struct warthog_options warthog_options;
 	struct network_game_local_data local_data;
 };
 

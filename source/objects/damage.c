@@ -138,6 +138,7 @@ symbols in this file:
 #include "units/bipeds.h"
 #include "units/units.h"
 #include "units/vehicles.h"
+#include "warthog_options.h" /* port: port/linux/game/warthog_options.c */
 
 /* network_game_globals.c's */
 boolean network_game_distributed_client(void);
@@ -1093,6 +1094,9 @@ static void object_damage_aftermath(
 						{
 							scale_vector3d(&acceleration, 2.f, &acceleration);
 						}
+						/* port: less while a Warthog's shields hold
+						(port/linux/game/warthog_options.c) */
+						scale_vector3d(&acceleration, warthog_damage_acceleration_scale, &acceleration);
 						vehicle_accelerate(object_index, &acceleration);
 					}
 				}
@@ -1228,7 +1232,18 @@ static void object_damage_body(
 
 	if (!TEST_FLAG(object->object.damage_flags, _object_cannot_take_damage_bit))
 	{
-		if (damage_amount > 0.f && TEST_FLAG(damage_material->flags, _damage_material_head_bit))
+		/* port: a Warthog turret's head hits as WARTHOG OPTIONS has them
+		(port/linux/game/warthog_options.c), in place of the game's rule */
+		real turret_headshot_scale = damage_amount > 0.f && TEST_FLAG(damage_material->flags, _damage_material_head_bit) ?
+			warthog_turret_headshot_scale(damage, damage_definition->category) : 0.f;
+
+		if (turret_headshot_scale > 0.f)
+		{
+			actual_damage *= turret_headshot_scale;
+			if (actual_damage > object->object.body_vitality)
+				SET_FLAG(*being_damaged_flags, _object_being_damaged_force_hard_ping_bit, TRUE);
+		}
+		else if (damage_amount > 0.f && TEST_FLAG(damage_material->flags, _damage_material_head_bit))
 		{
 			if (TEST_FLAG(damage_definition->flags, _damage_can_cause_headshots_bit))
 			{
@@ -1440,6 +1455,10 @@ void object_cause_damage(
 	long damaged_object_indices[16];
 	/* port: the gametype's friendly fire (game_engine_friendly_damage) */
 	short friendly_damage;
+	/* port: the knockback and stun a Warthog's shields left of the hit on
+	the object (port/linux/game/warthog_options.c) */
+	real warthog_acceleration_scale = 1.f;
+	real warthog_stun_scale = 1.f;
 
 	/* the distributed netcode (port/linux/NETCODE.md): the host deals
 	damage; a client reports its own players' hits instead, and the host
@@ -1513,6 +1532,11 @@ void object_cause_damage(
 		total_damage *= game_difficulty_get_value(_game_difficulty_value_enemy_damage);
 		damage_was_modified = TRUE;
 	}
+
+	/* port: Server Setup's WARTHOG OPTIONS: a Warthog turret's damage, and
+	what a Warthog's shields spare its riders (port/linux/game/warthog_options.c) */
+	total_damage *= warthog_turret_damage_scale(damage, damage_definition->category);
+	warthog_rider_damage(object_index, damage, damage_definition->category, &total_damage, &warthog_stun_scale);
 
 	damaged_object_count = 0;
 	material_effect_recorded = FALSE;
@@ -1813,6 +1837,14 @@ void object_cause_damage(
 						&total_damage);
 				}
 
+				/* port: a Warthog's shields take what they cover of a hit
+				on it (port/linux/game/warthog_options.c) */
+				if (current_object_index == object_index && friendly_damage != _friendly_damage_none)
+				{
+					warthog_vehicle_absorb(current_object_index, damage, damage_definition->category, &total_damage,
+						&warthog_acceleration_scale);
+				}
+
 				if (friendly_damage == _friendly_damage_all &&
 					(damaged_object_count == 0 ||
 						(parent_takes_body_damage &&
@@ -1892,6 +1924,14 @@ void object_cause_damage(
 
 				victim_player_index = victim ? victim->unit.player_index : NONE;
 			}
+			/* port: with the knockback and stun a Warthog's shields left of
+			it, which its clients' replays take too (network_damage.c) */
+			{
+				real saved_acceleration_scale = warthog_damage_acceleration_scale;
+				real saved_stun_scale = warthog_damage_stun_scale;
+
+				warthog_damage_acceleration_scale = current_object_index == object_index ? warthog_acceleration_scale : 1.f;
+				warthog_damage_stun_scale = current_object_index == object_index ? warthog_stun_scale : 1.f;
 			object_damage_aftermath(
 				current_object_index,
 				damage,
@@ -1913,6 +1953,9 @@ void object_cause_damage(
 				current_object_index == object_index ? region_index : NONE,
 				current_object_index == object_index ? material_index : NONE,
 				victim_player_index);
+				warthog_damage_acceleration_scale = saved_acceleration_scale;
+				warthog_damage_stun_scale = saved_stun_scale;
+			}
 			if (TEST_FLAG(
 				being_damaged_flags,
 				_object_being_damaged_body_destroyed_bit))

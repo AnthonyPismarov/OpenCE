@@ -85,6 +85,7 @@ their handlers open opens.
 #include "text/draw_string.h"
 /* (internet play's server browser: the platform layer's) */
 #include "../src/p2p.h"
+#include "halo_warthog_options.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -1948,6 +1949,7 @@ static struct
 	{ "controls.pause", L"PAUSE MENU", 2 },
 	{ "controls.screenshot", L"SCREENSHOT", 2 },
 	{ "controls.push_to_talk", L"PUSH TO TALK", 2 },
+	{ "controls.vehicle_view", L"WARTHOG VIEW", 2 },
 };
 
 static struct
@@ -2248,6 +2250,7 @@ boolean ui_widget_port_unjoin_player(struct widget_instance *widget, struct even
 void network_game_server_port_set_settings(wchar_t const *name, long maximum_players);
 void network_game_server_port_set_cooperative_friendly_fire(short friendly_fire);
 void network_game_server_port_set_cooperative_player_collisions(boolean player_collisions);
+void network_game_server_port_set_warthog_options(struct warthog_options const *options);
 void *global_network_game_client_get(void);
 void *global_network_game_server_get(void);
 boolean network_game_is_splitscreen_local(void);
@@ -2844,6 +2847,8 @@ VOTING), PASSWORD's and MAP SHARING's (its help_strings, tools/port_settings.py)
 #define COOPERATIVE_VOICE_OPTIONS_HELP 13
 #define SERVER_PASSWORD_HELP 14
 #define MAP_SHARE_OPTIONS_HELP 15
+/* ... and WARTHOG OPTIONS' (warthog_options.c) */
+#define WARTHOG_OPTIONS_HELP 16
 
 /* co-op's EXTRA ENEMIES' choices (network.coop_enemies_mode's values, as
 gametype_options' coop_extra_enemies_spinner has them, in this order): its
@@ -2986,6 +2991,9 @@ static void server_settings_update(struct widget_instance *list)
 			/* (MAP SHARING's, any game's: map_share.c) */
 			else if (help && list->focused_child == named(list, "op_map_share_options", 0))
 				help->parameters.text_box.string_list_index = MAP_SHARE_OPTIONS_HELP;
+			/* (WARTHOG OPTIONS', any game's: warthog_options.c) */
+			else if (help && list->focused_child == named(list, "op_warthog_options", 0))
+				help->parameters.text_box.string_list_index = WARTHOG_OPTIONS_HELP;
 		}
 	}
 	/* LISTING (an internet game's): PUBLIC, listed in everyone's server
@@ -3100,6 +3108,13 @@ static boolean server_start(void)
 	}
 	else if (!gametype_setup_apply())
 		return campaign_fail();
+	/* (and WARTHOG OPTIONS, for any game: warthog_options.c) */
+	{
+		struct warthog_options warthog_options;
+
+		warthog_options_from_config(&warthog_options);
+		network_game_server_port_set_warthog_options(&warthog_options);
+	}
 	return global_network_game_server_get() != NULL;
 }
 
@@ -4757,6 +4772,66 @@ static struct gametype_option const gametype_options[] =
 	{ "map_share_spinner", _option_setting, 0, 0, 2, { 0 }, "network.map_share", { "true", "false" } },
 	{ "map_share_upload_spinner", _option_setting, 0, 0, 6, { 0 }, "network.map_share_upload",
 		{ "256", "512", "1024", "2048", "4096", "8192" } },
+	/* Server Setup's WARTHOG OPTIONS (tools/port_settings.py's
+	WARTHOG_SETUP_SCREENS; warthog_options.c) */
+	{ "wh_accel_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.acceleration",
+		{ "50", "75", "100", "125", "150", "200", "300" } },
+	{ "wh_speed_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.top_speed",
+		{ "50", "75", "100", "125", "150", "200", "300" } },
+	{ "wh_steer_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.steering",
+		{ "50", "75", "100", "125", "150", "200", "300" } },
+	{ "wh_aim_spinner", _option_setting, 0, 0, 6, { 0 }, "warthog.passenger_aim_range",
+		{ "0", "90", "120", "180", "240", "360" } },
+	{ "wh_tacc_spinner", _option_setting, 0, 0, 6, { 0 }, "warthog.turret_accuracy",
+		{ "50", "75", "100", "150", "200", "400" } },
+	{ "wh_trof_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.turret_rate_of_fire",
+		{ "50", "75", "100", "125", "150", "200", "300" } },
+	{ "wh_tdmg_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.turret_damage",
+		{ "50", "75", "100", "125", "150", "200", "300" } },
+	{ "wh_thead_spinner", _option_setting, 0, 0, 5, { 0 }, "warthog.turret_headshot",
+		{ "0", "150", "200", "300", "500" } },
+	{ "wh_layers_spinner", _option_setting, 0, 0, 4, { 0 }, "warthog.shield_layers",
+		{ "0", "1", "2", "3" } },
+	{ "wh_amt1_spinner", _option_setting, 0, 0, 8, { 0 }, "warthog.shield_amount_1",
+		{ "25", "50", "75", "100", "150", "200", "300", "500" } },
+	{ "wh_amt2_spinner", _option_setting, 0, 0, 8, { 0 }, "warthog.shield_amount_2",
+		{ "25", "50", "75", "100", "150", "200", "300", "500" } },
+	{ "wh_amt3_spinner", _option_setting, 0, 0, 8, { 0 }, "warthog.shield_amount_3",
+		{ "25", "50", "75", "100", "150", "200", "300", "500" } },
+	{ "wh_rch1_spinner", _option_setting, 0, 0, 8, { 0 }, "warthog.shield_recharge_1",
+		{ "2", "3", "5", "8", "10", "15", "20", "30" } },
+	{ "wh_rch2_spinner", _option_setting, 0, 0, 8, { 0 }, "warthog.shield_recharge_2",
+		{ "2", "3", "5", "8", "10", "15", "20", "30" } },
+	{ "wh_rch3_spinner", _option_setting, 0, 0, 8, { 0 }, "warthog.shield_recharge_3",
+		{ "2", "3", "5", "8", "10", "15", "20", "30" } },
+	{ "wh_delay_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.shield_recharge_delay",
+		{ "1", "2", "3", "4", "5", "7", "10" } },
+	{ "wh_protect_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.rider_protection",
+		{ "0", "10", "25", "50", "75", "90", "100" } },
+	{ "wh_bul_shd_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.bullets_shield",
+		{ "0", "10", "25", "50", "75", "90", "100" } },
+	{ "wh_bul_knk_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.bullets_knockback",
+		{ "0", "10", "25", "50", "75", "90", "100" } },
+	{ "wh_bul_pass_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.bullets_pass_through",
+		{ "0", "10", "25", "50", "75", "90", "100" } },
+	{ "wh_exp_shd_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.explosives_shield",
+		{ "0", "10", "25", "50", "75", "90", "100" } },
+	{ "wh_exp_knk_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.explosives_knockback",
+		{ "0", "10", "25", "50", "75", "90", "100" } },
+	{ "wh_exp_pass_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.explosives_pass_through",
+		{ "0", "10", "25", "50", "75", "90", "100" } },
+	{ "wh_pla_shd_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.plasma_bullets_shield",
+		{ "0", "10", "25", "50", "75", "90", "100" } },
+	{ "wh_pla_knk_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.plasma_bullets_knockback",
+		{ "0", "10", "25", "50", "75", "90", "100" } },
+	{ "wh_pla_pass_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.plasma_bullets_pass_through",
+		{ "0", "10", "25", "50", "75", "90", "100" } },
+	{ "wh_plx_shd_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.plasma_explosives_shield",
+		{ "0", "10", "25", "50", "75", "90", "100" } },
+	{ "wh_plx_knk_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.plasma_explosives_knockback",
+		{ "0", "10", "25", "50", "75", "90", "100" } },
+	{ "wh_plx_pass_spinner", _option_setting, 0, 0, 7, { 0 }, "warthog.plasma_explosives_pass_through",
+		{ "0", "10", "25", "50", "75", "90", "100" } },
 	/* vehicle options (the side's set and counts: vehicles_update) */
 	{ "vehicles_respawn_spinner", _option_short, OPTIONS_FIELD(vehicle_respawn_time), 0, 7,
 		{ 0, 30, 60, 90, 120, 180, 300 } },

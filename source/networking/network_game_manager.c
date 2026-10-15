@@ -770,6 +770,9 @@ boolean network_game_create_game_objects(
 	game_options_new(&options);
 	csstrncpy(options.map_name, game->map.name, sizeof(game->map.name) - 1);
 	options.difficulty = game->difficulty;
+	/* port: Server Setup's WARTHOG OPTIONS, which the map's tags take as they
+	load (port/linux/game/warthog_options.c) */
+	warthog_options_set(&game->warthog_options);
 
 	switch (game_connection())
 	{

@@ -137,6 +137,7 @@ symbols in this file:
 
 #include "units/unit_definitions.h"
 #include "units/units.h"
+#include "warthog_options.h" /* port: port/linux/game/warthog_options.c */
 
 /* network_game_globals.c's */
 boolean network_game_distributed_client(void);
@@ -371,6 +372,14 @@ short director_desired_perspective(
 
 		if (*perspective == 1 || *perspective == 3)
 			following = TRUE;
+		/* port: a Warthog's driver or passenger seen the other way, by their
+		key (controls.vehicle_view: port/linux/game/warthog_options.c), as a
+		perspective of its own, so that the camera changes to it */
+		if (*perspective == 2 && warthog_options_view_toggled(unit_index))
+		{
+			following = !following;
+			*perspective = 4;
+		}
 	}
 
 	return following;
