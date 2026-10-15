@@ -1932,27 +1932,27 @@ void object_cause_damage(
 
 				warthog_damage_acceleration_scale = current_object_index == object_index ? warthog_acceleration_scale : 1.f;
 				warthog_damage_stun_scale = current_object_index == object_index ? warthog_stun_scale : 1.f;
-			object_damage_aftermath(
-				current_object_index,
-				damage,
-				being_damaged_flags,
-				shield_damage,
-				body_damage,
-				body_damage_multiplier,
-				body_part);
-			/* (the host's, for its clients) */
-			network_damage_aftermath(
-				current_object_index,
-				damage,
-				being_damaged_flags,
-				shield_damage,
-				body_damage,
-				body_damage_multiplier,
-				body_part,
-				current_object_index == object_index ? node_index : NONE,
-				current_object_index == object_index ? region_index : NONE,
-				current_object_index == object_index ? material_index : NONE,
-				victim_player_index);
+				object_damage_aftermath(
+					current_object_index,
+					damage,
+					being_damaged_flags,
+					shield_damage,
+					body_damage,
+					body_damage_multiplier,
+					body_part);
+				/* (the host's, for its clients) */
+				network_damage_aftermath(
+					current_object_index,
+					damage,
+					being_damaged_flags,
+					shield_damage,
+					body_damage,
+					body_damage_multiplier,
+					body_part,
+					current_object_index == object_index ? node_index : NONE,
+					current_object_index == object_index ? region_index : NONE,
+					current_object_index == object_index ? material_index : NONE,
+					victim_player_index);
 				warthog_damage_acceleration_scale = saved_acceleration_scale;
 				warthog_damage_stun_scale = saved_stun_scale;
 			}

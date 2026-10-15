@@ -77,3 +77,20 @@ def test_negative_control(control):
     fault, faulty_function, case = NEGATIVE_CONTROLS[control]
     status, output = run(build("warthog_shields", generated(fault, faulty_function)), case)
     assert status == CHECK_FAILED, f"warthog_options.c with a fault ({control}) passed '{case}': the test cannot see it"
+
+
+def test_tag_offsets_are_the_games():
+    # the Warthogs are found and tuned by fields of the vehicle tag that its
+    # own units keep to themselves: their offsets must be those the game
+    # checks (network_objects.c) and patches (pal_tags.c) itself
+    source = read(SOURCE)
+    assert constant(source, "VEHICLE_TYPE_OFFSET") == int(re.search(
+        r"offsetof\(struct vehicle_definition, vehicle_type\) == (0x[0-9A-Fa-f]+)",
+        read("port/linux/game/network_objects.c")).group(1), 16)
+    pal = read("port/linux/game/pal_tags.c")
+    for name in ("VEHICLE_MAXIMUM_FORWARD_SPEED_OFFSET", "VEHICLE_SPEED_ACCELERATION_OFFSET",
+                 "VEHICLE_MAXIMUM_LEFT_TURN_OFFSET", "VEHICLE_MAXIMUM_RIGHT_TURN_OFFSET"):
+        assert constant(source, name) == constant(pal, name), name
+    vehicles = read("source/units/vehicles.c")
+    assert "unknown314" in vehicles and "DEGREES_TO_RADIANS(definition->unknown314)" in vehicles
+    assert re.search(r"unit_initial_weapon\) == 0x24", read("source/units/units.c"))

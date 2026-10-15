@@ -44,6 +44,7 @@ port/linux/include/halo_warthog_options.h has the record.
 #include "cseries.h"
 #include "cache/cache_files.h"
 #include "game/game.h"
+#include "game/game_engine.h"
 #include "game/players.h"
 #include "interface/hud_messaging.h"
 #include "items/weapon_definitions.h"
@@ -77,7 +78,8 @@ enum
 {
 	/* the vehicle tag's fields this unit scales (vehicles.c's struct
 	vehicle_definition, which it keeps to itself; pal_tags.c has the same) */
-	VEHICLE_TYPE_OFFSET = 0x2F6,
+	/* (network_objects.c checks vehicle_type's offset too) */
+	VEHICLE_TYPE_OFFSET = 0x2F4,
 	VEHICLE_MAXIMUM_FORWARD_SPEED_OFFSET = 0x2F8,
 	VEHICLE_SPEED_ACCELERATION_OFFSET = 0x300,
 	VEHICLE_MAXIMUM_LEFT_TURN_OFFSET = 0x308,
@@ -375,7 +377,8 @@ static real shield_drain(
 		amount -= part;
 		taken += part;
 	}
-	shield->hit_time = game_time_get();
+	if (taken > 0.0f)
+		shield->hit_time = game_time_get();
 	return taken;
 }
 
@@ -497,8 +500,35 @@ void warthog_options_set(
 	warthog_globals.active = options != NULL;
 	if (options)
 	{
-		warthog_globals.options = *options;
-		warthog_globals.options.shield_layers = (byte)MIN(options->shield_layers, MAXIMUM_WARTHOG_SHIELD_LAYERS);
+		struct warthog_options *kept = &warthog_globals.options;
+		short layer;
+		short kind;
+		short effect;
+
+		/* (the host's, bounded as its menus bound them: a host's record is
+		untrusted) */
+		*kept = *options;
+		kept->acceleration = (short)PIN(kept->acceleration, 0, 1000);
+		kept->top_speed = (short)PIN(kept->top_speed, 0, 1000);
+		kept->steering = (short)PIN(kept->steering, 0, 1000);
+		kept->turret_accuracy = (short)PIN(kept->turret_accuracy, 0, 1000);
+		kept->turret_rate_of_fire = (short)PIN(kept->turret_rate_of_fire, 0, 1000);
+		kept->turret_damage = (short)PIN(kept->turret_damage, 0, 1000);
+		kept->turret_headshot = (short)PIN(kept->turret_headshot, 0, 1000);
+		kept->passenger_aim_range = (short)PIN(kept->passenger_aim_range, 0, 360);
+		kept->shield_layers = (byte)MIN(kept->shield_layers, MAXIMUM_WARTHOG_SHIELD_LAYERS);
+		kept->rider_protection = (byte)MIN(kept->rider_protection, 100);
+		kept->shield_recharge_delay = (short)PIN(kept->shield_recharge_delay, 0, 600);
+		for (layer = 0; layer < MAXIMUM_WARTHOG_SHIELD_LAYERS; layer++)
+		{
+			kept->shield_amount[layer] = (short)PIN(kept->shield_amount[layer], 0, 5000);
+			kept->shield_recharge_time[layer] = (short)PIN(kept->shield_recharge_time[layer], 0, 6000);
+		}
+		for (kind = 0; kind < NUMBER_OF_WARTHOG_DAMAGE_KINDS; kind++)
+		{
+			for (effect = 0; effect < NUMBER_OF_WARTHOG_EFFECTS; effect++)
+				kept->reduction[kind][effect] = (byte)MIN(kept->reduction[kind][effect], 100);
+		}
 	}
 	for (index = 0; index < MAXIMUM_SHIELDED_WARTHOGS; index++)
 		warthog_globals.shields[index].object_index = NONE;
@@ -704,8 +734,10 @@ boolean warthog_damage_from_turret(
 	{
 		return FALSE;
 	}
+	/* (the Warthog's own while someone mans its turret: not, say, its
+	explosion once it is empty) */
 	if (object_is_warthog(damage->owner_object_index))
-		return TRUE;
+		return unit_get(damage->owner_object_index)->unit.gunner_object_index != NONE;
 	/* (a gunner's own: the unit in a Warthog's gunner seat) */
 	owner = unit_try_and_get(damage->owner_object_index);
 	if (owner && object_is_warthog(owner->object.parent_object_index) && owner->unit.parent_seat_index != NONE)
@@ -737,8 +769,11 @@ real warthog_turret_headshot_scale(
 	struct damage_data const *damage,
 	short category)
 {
-	if (warthog_globals.options.turret_headshot <= 0 || !warthog_damage_from_turret(damage, category))
+	if (warthog_globals.options.turret_headshot <= 0 || !game_engine_running() ||
+		!warthog_damage_from_turret(damage, category))
+	{
 		return 0.0f;
+	}
 	return (real)warthog_globals.options.turret_headshot / 100.0f;
 }
 
@@ -761,10 +796,11 @@ void warthog_vehicle_absorb(
 	if (!shield || shield_total(shield) <= 0.0f)
 		return;
 	kind = warthog_damage_kind(damage, category);
-	scale = kind == NONE ? 1.0f :
-		reduction_scale(warthog_globals.options.reduction[kind][_warthog_effect_shield_damage]);
-	if (kind != NONE)
-		*acceleration_scale *= reduction_scale(warthog_globals.options.reduction[kind][_warthog_effect_knockback]);
+	/* (melee, collisions, falls: as the stock game has them) */
+	if (kind == NONE)
+		return;
+	scale = reduction_scale(warthog_globals.options.reduction[kind][_warthog_effect_shield_damage]);
+	*acceleration_scale *= reduction_scale(warthog_globals.options.reduction[kind][_warthog_effect_knockback]);
 	if (*total_damage <= 0.0f)
 		return;
 	/* the shields cover the hit (its reduced part drained) as far as they
@@ -812,8 +848,10 @@ void warthog_rider_damage(
 	if (!shield || shield_total(shield) <= 0.0f)
 		return;
 	kind = warthog_damage_kind(damage, category);
-	through = kind == NONE ? 1.0f :
-		reduction_scale(warthog_globals.options.reduction[kind][_warthog_effect_pass_through]);
+	/* (melee, collisions, falls: as the stock game has them) */
+	if (kind == NONE)
+		return;
+	through = reduction_scale(warthog_globals.options.reduction[kind][_warthog_effect_pass_through]);
 	protection = (real)MIN(warthog_globals.options.rider_protection, 100) / 100.0f;
 	*stun_scale *= through * (1.0f - protection);
 	if (*total_damage <= 0.0f)

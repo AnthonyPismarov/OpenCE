@@ -7279,7 +7279,8 @@ void unit_damage_aftermath(
 		maximum_stun_ticks = (short)(
 			player_information->maximum_stun_time * TICKS_PER_SECOND);
 
-		if (unit->unit.body_stun_ticks < minimum_stun_ticks)
+		/* port: (not stun a Warthog's shields cut: warthog_options.c) */
+		if (unit->unit.body_stun_ticks < minimum_stun_ticks && warthog_damage_stun_scale >= 1.f)
 		{
 			unit->unit.body_stun_ticks = minimum_stun_ticks;
 		}

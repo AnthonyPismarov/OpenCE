@@ -4345,10 +4345,12 @@ void network_game_server_port_set_warthog_options(
 {
 	struct network_game_server *server = global_network_game_server_get();
 
-	if (!server || !options)
+	/* (in the lobby only: once a game is under way, a machine joining it would
+	have other options than those playing) */
+	if (!server || !options || server->state != _network_game_server_state_pregame)
 		return;
 	server->game.warthog_options = *options;
-	if (server->state == _network_game_server_state_pregame && !network_game_server_send_game_data_pregame(server))
+	if (!network_game_server_send_game_data_pregame(server))
 		network_event("network_game_server_port_set_warthog_options() failed to send updated game settings to clients");
 }
 
